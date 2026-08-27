@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Producto | Cocinas ColoryMarmol</title>
+<script src="../config.js"></script>
+<style>
+:root{--bg:#f8f6f1;--ink:#171715;--gold:#b77f2b;--line:#e2d9cc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,sans-serif;line-height:1.55}a{text-decoration:none;color:inherit}.container{width:min(1180px,calc(100% - 34px));margin:auto}
+.header{background:#111;color:white;padding:18px 0}.nav{display:flex;justify-content:space-between;align-items:center}.logo{font-family:Georgia,serif;font-size:23px}.btn{display:inline-block;background:var(--gold);color:white;padding:13px 20px;border-radius:4px;font-weight:bold}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:45px;align-items:center;padding:60px 0}.hero img{width:100%;height:520px;object-fit:cover;border-radius:10px}.tag{font-size:11px;letter-spacing:3px;color:var(--gold);font-weight:bold;text-transform:uppercase}.hero h1,.display{font-family:Georgia,serif}.hero h1{font-size:56px;line-height:1.05;margin:10px 0}.hero p{color:#6e685f}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.chip{background:#eee6da;padding:9px 12px;border-radius:4px;font-size:12px}.section{padding:70px 0}.detail{display:grid;grid-template-columns:1fr 1fr;gap:50px}.display{font-size:42px}.features li{margin:10px 0}.footer{background:#111;color:white;padding:40px 0;margin-top:40px}.back{color:var(--gold);font-weight:bold;font-size:13px;display:inline-block;margin-top:18px}
+@media(max-width:800px){.hero,.detail{grid-template-columns:1fr}.hero img{height:350px}.hero h1{font-size:42px}}
+</style>
+</head>
+<body>
+<header class="header"><div class="container nav"><a class="logo" href="../index.html">Cocinas ColoryMarmol</a><a class="btn" href="../index.html#cotizar">Cotizar</a></div></header>
+<main class="container" id="app"></main>
+<footer class="footer"><div class="container">Cocinas ColoryMarmol · Diseño · Fabricación · Instalación</div></footer>
+<script>
+const id=new URLSearchParams(location.search).get('id');
+const p=ColorYMarmolStore.load().find(x=>x.id===id);
+const app=document.getElementById('app');
+if(!p){
+ app.innerHTML='<section class="section"><h1 class="display">Producto no encontrado</h1><p>El producto pudo haber sido eliminado.</p><a class="btn" href="../index.html#productos">Volver al catálogo</a></section>';
+}else{
+ document.title=p.name+' | Cocinas ColoryMarmol';
+ const features=(p.features||[]).map(f=>'<li>'+f+'</li>').join('');
+ app.innerHTML=`<section class="hero"><img src="../${p.image}" alt="${p.name}"><div><span class="tag">${p.category}</span><h1>${p.name}</h1><p>${p.description||''}</p><div class="chips">${p.material?'<span class="chip">'+p.material+'</span>':''}<span class="chip">Fabricación a medida</span><span class="chip">Instalación profesional</span></div><a class="btn" target="_blank" href="https://wa.me/${COLORYMARMOL_CONFIG.whatsapp}?text=${encodeURIComponent('Hola, me interesa '+p.name+' y me gustaría solicitar una cotización.')}">Cotizar este diseño</a><br><a class="back" href="../index.html#productos">← Volver al catálogo</a></div></section><section class="section"><div class="detail"><div><span class="tag">DESCRIPCIÓN</span><h2 class="display">Diseñado para tu espacio</h2><p>${p.description||''}</p></div><div><span class="tag">CARACTERÍSTICAS</span><ul class="features">${features||'<li>Fabricación personalizada</li><li>Materiales seleccionados</li><li>Instalación profesional</li>'}</ul></div></div></section>`;
+}
+</script>
+</body></html>
