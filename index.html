@@ -7,7 +7,7 @@
 <meta name="description" content="Fabricantes directos de cocinas integrales, closets, vestidores, muebles para baño y cubiertas de mármol, cuarzo y granito.">
 <link rel="canonical" href="https://colorymarmol.com/">
 <meta name="theme-color" content="#151513">
-<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
 <style>
 :root{--bg:#f8f6f1;--ink:#171715;--muted:#756f66;--gold:#b77f2b;--gold2:#d19b4a;--dark:#151513;--line:#e5ddd1}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
@@ -74,8 +74,8 @@ input,select,textarea{width:100%;padding:13px;border:1px solid #d7cfc3;backgroun
 
 <section class="section" id="productos">
 <div class="container">
-<div class="heading"><span class="tag">CATÁLOGO</span><h2 class="display">Soluciones para cada espacio</h2><p>El catálogo se alimenta desde <code>config.js</code> y desde el panel de administración.</p></div>
-<div class="filters"><button class="filter active" data-filter="all">Todos</button><button class="filter" data-filter="cocinas">Cocinas</button><button class="filter" data-filter="closets">Closets</button><button class="filter" data-filter="banos">Baños</button><button class="filter" data-filter="encimeras">Encimeras</button></div>
+<div class="heading"><span class="tag">CATÁLOGO</span><h2 class="display">Soluciones para cada espacio</h2><p>Productos publicados directamente desde nuestro catálogo.</p></div>
+<div class="filters"><button class="filter active" data-filter="all">Todos</button><button class="filter" data-filter="cocinas">Cocinas</button><button class="filter" data-filter="closets">Closets</button><button class="filter" data-filter="vestidores">Vestidores</button><button class="filter" data-filter="banos">Baños</button><button class="filter" data-filter="encimeras">Encimeras</button></div>
 <div id="productGrid" class="product-grid"></div>
 </div></section>
 
@@ -126,55 +126,21 @@ input,select,textarea{width:100%;padding:13px;border:1px solid #d7cfc3;backgroun
 </a>
 
 <script>
-const cfg=window.COLORYMARMOL_CONFIG;
-const store=window.ColorYMarmolStore;
-let products=store.load();
-
+const cfg=COLORYMARMOL_CONFIG;
+const sb=supabase.createClient(cfg.supabase.url,cfg.supabase.publishableKey);
+let products=[];
+const labels={cocinas:'Cocinas',closets:'Closets',vestidores:'Vestidores',banos:'Baños',encimeras:'Encimeras'};
 document.getElementById('topPhone').textContent='WhatsApp: '+cfg.phone;
-document.getElementById('footPhone').textContent=cfg.phone;
-document.getElementById('footEmail').textContent=cfg.email;
-document.getElementById('footLocation').textContent=cfg.location;
+document.getElementById('footPhone').textContent=cfg.phone;document.getElementById('footEmail').textContent=cfg.email;document.getElementById('footLocation').textContent=cfg.location;
 document.getElementById('waFloat').href='https://wa.me/'+cfg.whatsapp+'?text='+encodeURIComponent('Hola, vi su página y me gustaría solicitar información.');
-
-document.getElementById('menuBtn').onclick=()=>document.getElementById('nav').classList.toggle('open');
-document.querySelectorAll('#nav a').forEach(a=>a.onclick=()=>document.getElementById('nav').classList.remove('open'));
-
-const labels={cocinas:'Cocinas',closets:'Closets',banos:'Baños',encimeras:'Encimeras'};
-
-function card(p){
- return `<article class="product-card" data-category="${p.category}">
- ${p.featured?'<span class="badge">Destacado</span>':''}
- <img src="${p.image}" alt="${p.name}" loading="lazy">
- <div class="body"><span class="tag">${labels[p.category]||p.category}</span><h3>${p.name}</h3><p>${p.description||''}</p><a class="btn" href="productos/producto.html?id=${encodeURIComponent(p.id)}">Ver detalles</a></div></article>`;
-}
-function carouselCard(p){
- return `<article class="card"><img src="${p.image}" alt="${p.name}" loading="lazy"><div class="card-body"><span class="tag">${labels[p.category]||p.category}</span><h3>${p.name}</h3><p>${p.description||''}</p><a href="productos/producto.html?id=${encodeURIComponent(p.id)}">Ver detalles →</a></div></article>`;
-}
-function render(){
- products=store.load().filter(x=>x.status!=='draft');
- document.getElementById('productGrid').innerHTML=products.map(card).join('')||'<div class="empty">No hay productos publicados.</div>';
- document.getElementById('featuredCarousel').innerHTML=products.filter(x=>x.featured).map(carouselCard).join('')||products.slice(0,5).map(carouselCard).join('');
- const mats=products.filter(x=>x.category==='encimeras');
- document.getElementById('materialCarousel').innerHTML=(mats.length?mats:window.COLORYMARMOL_DEFAULT_PRODUCTS.filter(x=>x.category==='encimeras')).map(carouselCard).join('');
-}
+document.getElementById('menuBtn').onclick=()=>document.getElementById('nav').classList.toggle('open');document.querySelectorAll('#nav a').forEach(a=>a.onclick=()=>document.getElementById('nav').classList.remove('open'));
+function img(p){return p.imagen_principal||'productos/images/hero-colorymarmol.jpg'}
+function card(p){return `<article class="product-card" data-category="${p.categoria}">${p.destacado?'<span class="badge">Destacado</span>':''}<img src="${img(p)}" alt="${p.nombre}" loading="lazy"><div class="body"><span class="tag">${labels[p.categoria]||p.categoria}</span><h3>${p.nombre}</h3><p>${p.descripcion_corta||p.descripcion||''}</p><a class="btn" href="productos/producto.html?slug=${encodeURIComponent(p.slug)}">Ver detalles</a></div></article>`}
+function carouselCard(p){return `<article class="card"><img src="${img(p)}" alt="${p.nombre}" loading="lazy"><div class="card-body"><span class="tag">${labels[p.categoria]||p.categoria}</span><h3>${p.nombre}</h3><p>${p.descripcion_corta||p.descripcion||''}</p><a href="productos/producto.html?slug=${encodeURIComponent(p.slug)}">Ver detalles →</a></div></article>`}
+async function render(){const {data,error}=await sb.from(cfg.supabase.table).select('*').eq('estado','publicado').order('created_at',{ascending:false});if(error){console.error(error);document.getElementById('productGrid').innerHTML='<div class="empty">No fue posible cargar el catálogo.</div>';return}products=data||[];document.getElementById('productGrid').innerHTML=products.map(card).join('')||'<div class="empty">Próximamente publicaremos nuevos diseños.</div>';const f=products.filter(x=>x.destacado);document.getElementById('featuredCarousel').innerHTML=(f.length?f:products.slice(0,6)).map(carouselCard).join('');const mats=products.filter(x=>x.categoria==='encimeras');document.getElementById('materialCarousel').innerHTML=mats.map(carouselCard).join('')||'<div class="empty" style="color:#777">Próximamente nuevos materiales.</div>'}
 render();
-
-document.querySelectorAll('.filter').forEach(btn=>btn.onclick=()=>{
- document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
- const f=btn.dataset.filter;
- document.querySelectorAll('.product-card').forEach(c=>c.style.display=(f==='all'||c.dataset.category===f)?'':'none');
-});
-
-function scrollCarousel(id,dir){const el=document.getElementById(id);el.scrollBy({left:dir*el.clientWidth*.82,behavior:'smooth'});}
-document.getElementById('matPrev').onclick=()=>scrollCarousel('materialCarousel',-1);
-document.getElementById('matNext').onclick=()=>scrollCarousel('materialCarousel',1);
-document.getElementById('projPrev').onclick=()=>scrollCarousel('featuredCarousel',-1);
-document.getElementById('projNext').onclick=()=>scrollCarousel('featuredCarousel',1);
-
-document.getElementById('quoteForm').onsubmit=e=>{
- e.preventDefault();const fd=new FormData(e.currentTarget),lines=['Hola, me gustaría solicitar una cotización.'];
- for(const [k,v] of fd.entries())if(v)lines.push(k+': '+v);
- window.open('https://wa.me/'+cfg.whatsapp+'?text='+encodeURIComponent(lines.join('\n')),'_blank');
-};
+document.querySelectorAll('.filter').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;document.querySelectorAll('.product-card').forEach(c=>c.style.display=(f==='all'||c.dataset.category===f)?'':'none')});
+function scrollCarousel(id,dir){const el=document.getElementById(id);el.scrollBy({left:dir*el.clientWidth*.82,behavior:'smooth'})}document.getElementById('matPrev').onclick=()=>scrollCarousel('materialCarousel',-1);document.getElementById('matNext').onclick=()=>scrollCarousel('materialCarousel',1);document.getElementById('projPrev').onclick=()=>scrollCarousel('featuredCarousel',-1);document.getElementById('projNext').onclick=()=>scrollCarousel('featuredCarousel',1);
+document.getElementById('quoteForm').onsubmit=e=>{e.preventDefault();const fd=new FormData(e.currentTarget),lines=['Hola, me gustaría solicitar una cotización.'];for(const [k,v] of fd.entries())if(v)lines.push(k+': '+v);window.open('https://wa.me/'+cfg.whatsapp+'?text='+encodeURIComponent(lines.join('\n')),'_blank')};
 </script>
 </body></html>
