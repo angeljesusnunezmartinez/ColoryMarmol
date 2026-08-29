@@ -2758,6 +2758,9 @@ const sb =
 const TABLE =
   "Productos";
 
+const MATERIALS_TABLE =
+  "Materiales";
+
 
 let products = [];
 
@@ -3241,19 +3244,6 @@ async function loadProducts(){
 
     document
       .getElementById(
-        "materialCarousel"
-      )
-      .innerHTML =
-
-      `
-        <div class="empty">
-          No fue posible cargar los materiales.
-        </div>
-      `;
-
-
-    document
-      .getElementById(
         "featuredCarousel"
       )
       .innerHTML =
@@ -3366,29 +3356,168 @@ async function loadProducts(){
 
 
 
-  /* ========================================
-     MATERIALES / ENCIMERAS
-  ======================================== */
+}
 
 
-  const materials =
+/* ==========================================
+   TARJETA MATERIAL
+========================================== */
 
-    products.filter(
-      product =>
+function materialCard(material){
 
-        product.categoria
-        ===
-        "encimeras"
-
+  const name =
+    escapeHTML(
+      material.nombre
+      ||
+      "Material"
     );
 
+  const description =
+    escapeHTML(
+      material.descripcion_corta
+      ||
+      material.descripcion
+      ||
+      ""
+    );
+
+  const type =
+    escapeHTML(
+      material.tipo
+      ||
+      "Material"
+    );
+
+  const image =
+    material.imagen_principal
+    ||
+    "productos/images/hero-colorymarmol.jpg";
+
+  return `
+
+    <article class="card">
+
+      <img
+        src="${image}"
+        alt="${name}"
+        loading="lazy"
+      >
+
+      <div class="card-body">
+
+        <span class="tag">
+          ${type}
+        </span>
+
+        <h3>
+          ${name}
+        </h3>
+
+        <p>
+          ${description}
+        </p>
+
+        <a
+          href="#cotizar"
+          data-material="${name}"
+        >
+          Solicitar información →
+        </a>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
 
 
-  document
-    .getElementById(
+/* ==========================================
+   CARGAR MATERIALES DESDE SUPABASE
+========================================== */
+
+async function loadMaterials(){
+
+  console.log(
+    "Cargando materiales publicados..."
+  );
+
+  const container =
+    document.getElementById(
       "materialCarousel"
+    );
+
+  if(!sb){
+
+    container.innerHTML = `
+      <div class="empty">
+        Error de configuración con Supabase.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  const {
+    data,
+    error
+  } = await sb
+
+    .from(
+      MATERIALS_TABLE
     )
-    .innerHTML =
+
+    .select(
+      "*"
+    )
+
+    .eq(
+      "estado",
+      "publicado"
+    )
+
+    .order(
+      "destacado",
+      {
+        ascending:false
+      }
+    )
+
+    .order(
+      "created_at",
+      {
+        ascending:false
+      }
+    );
+
+  if(error){
+
+    console.error(
+      "Error cargando materiales:",
+      error
+    );
+
+    container.innerHTML = `
+      <div class="empty">
+        No fue posible cargar los materiales.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  const materials =
+    data || [];
+
+  console.log(
+    "Materiales publicados encontrados:",
+    materials
+  );
+
+  container.innerHTML =
 
     materials.length
 
@@ -3396,7 +3525,7 @@ async function loadProducts(){
 
     materials
       .map(
-        carouselCard
+        materialCard
       )
       .join("")
 
@@ -3404,13 +3533,47 @@ async function loadProducts(){
 
     `
       <div class="empty">
-        Próximamente mostraremos nuevos materiales.
+        Próximamente mostraremos nuestros materiales.
       </div>
     `;
 
+  container
+    .querySelectorAll(
+      "[data-material]"
+    )
+    .forEach(
+      link => {
+
+        link.addEventListener(
+          "click",
+          () => {
+
+            const select =
+              document.querySelector(
+                '#quoteForm select[name="Proyecto"]'
+              );
+
+            const details =
+              document.querySelector(
+                '#quoteForm textarea[name="Detalles"]'
+              );
+
+            if(select){
+              select.value = "Proyecto completo";
+            }
+
+            if(details){
+              details.value =
+                `Me interesa recibir información y cotización sobre el material: ${link.dataset.material}.`;
+            }
+
+          }
+        );
+
+      }
+    );
+
 }
-
-
 
 /* ==========================================
    INICIAR CATÁLOGO
@@ -3418,6 +3581,7 @@ async function loadProducts(){
 
 
 loadProducts();
+loadMaterials();
 
 
 
