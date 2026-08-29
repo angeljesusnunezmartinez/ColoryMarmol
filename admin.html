@@ -433,6 +433,44 @@
     }
 
 
+
+    /* ===============================
+       SECCIONES DEL MENÚ
+    =============================== */
+
+    .side-title{
+      margin:18px 10px 7px;
+      color:#777;
+      font-size:9px;
+      font-weight:700;
+      letter-spacing:2px;
+      text-transform:uppercase;
+    }
+
+    .material-note{
+      margin:0 0 18px;
+      padding:12px 14px;
+      border-left:3px solid var(--gold);
+      background:#faf7f1;
+      color:#6e675e;
+      font-size:12px;
+    }
+
+    .material-stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      margin:20px 0;
+    }
+
+    @media(max-width:1000px){
+      .material-stats{grid-template-columns:1fr 1fr;}
+    }
+
+    @media(max-width:700px){
+      .material-stats{grid-template-columns:1fr;}
+    }
+
     .btn-back-home{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:11px 16px;border:1px solid rgba(255,255,255,.24);border-radius:6px;background:transparent;color:white;font-size:12px;font-weight:700;text-decoration:none;transition:.2s ease}.btn-back-home:hover{background:white;color:#171715;border-color:white;transform:translateY(-1px)}.login-back{position:fixed;top:20px;left:20px;z-index:20}.top-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     @media(max-width:1000px){
 
@@ -550,6 +588,8 @@
       <small>ADMINISTRACIÓN</small>
     </div>
 
+    <div class="side-title">Resumen</div>
+
     <button
       class="active"
       data-view="dashboard"
@@ -557,17 +597,33 @@
       Resumen
     </button>
 
+    <div class="side-title">Productos</div>
+
     <button data-view="new">
-      Nuevo producto
+      + Nuevo producto
     </button>
 
     <button data-view="items">
       Productos
     </button>
 
+    <div class="side-title">Materiales</div>
+
+    <button data-view="new-material">
+      + Nuevo material
+    </button>
+
+    <button data-view="materials">
+      Materiales
+    </button>
+
+    <div class="side-title">Sitio</div>
+
     <a href="index.html">← Regresar a la página principal</a>
 
     <a href="index.html" target="_blank">Ver página</a>
+
+    <div class="side-title">Cuenta</div>
 
     <button id="logout">
       Cerrar sesión
@@ -593,6 +649,7 @@
       <div class="top-actions">
         <a href="index.html" class="btn-back-home" style="color:#171715;border-color:#cfc5b6">← Regresar a la página principal</a>
         <button class="btn" id="newTop">+ Agregar producto</button>
+        <button class="btn" id="newMaterialTop">+ Agregar material</button>
       </div>
 
     </div>
@@ -600,8 +657,8 @@
 
     <div class="notice">
       <b>Conectado con Supabase.</b>
-      Los productos guardados aquí estarán disponibles
-      automáticamente para la página pública.
+      Los productos y materiales guardados aquí estarán disponibles
+      automáticamente para la página pública cuando estén publicados.
     </div>
 
 
@@ -647,6 +704,30 @@
 
         <div id="recent"></div>
 
+      </div>
+
+      <div class="material-stats">
+        <div class="stat">
+          <strong id="materialTotal">0</strong>
+          <span>Total de materiales</span>
+        </div>
+        <div class="stat">
+          <strong id="materialPublished">0</strong>
+          <span>Materiales publicados</span>
+        </div>
+        <div class="stat">
+          <strong id="materialFeatured">0</strong>
+          <span>Materiales destacados</span>
+        </div>
+        <div class="stat">
+          <strong id="materialPhotos">0</strong>
+          <span>Materiales con fotografía</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Últimos materiales</h2>
+        <div id="recentMaterials"></div>
       </div>
 
     </section>
@@ -957,6 +1038,108 @@
 
     </section>
 
+    <!-- ===============================
+         NUEVO / EDITAR MATERIAL
+    =============================== -->
+
+    <section data-panel="new-material" hidden>
+      <div class="panel">
+        <h2 id="materialFormTitle">Nuevo material</h2>
+
+        <p class="material-note">
+          Registra aquí las piedras, superficies y acabados que maneja la empresa.
+          Estos registros son independientes de los productos.
+        </p>
+
+        <div class="status" id="materialFormStatus"></div>
+
+        <form id="materialForm">
+          <input type="hidden" id="mid">
+          <input type="hidden" id="mslug">
+
+          <div class="grid">
+            <div>
+              <label>Nombre del material *</label>
+              <input id="mname" required placeholder="Ej. Piedra sinterizada">
+            </div>
+
+            <div>
+              <label>Tipo *</label>
+              <input id="mtype" required placeholder="Ej. Piedra natural, superficie compacta...">
+            </div>
+
+            <div>
+              <label>Estado</label>
+              <select id="mstatus">
+                <option value="publicado">Publicado</option>
+                <option value="borrador">Borrador</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Descripción corta</label>
+              <input id="mshort" maxlength="180" placeholder="Texto breve para la tarjeta de la página principal">
+            </div>
+
+            <div class="span2">
+              <label>Descripción completa</label>
+              <textarea id="mdesc" rows="5" placeholder="Describe el material, sus ventajas, apariencia y usos."></textarea>
+            </div>
+
+            <div>
+              <label>Características</label>
+              <textarea id="mfeatures" rows="6" placeholder="Una característica por línea"></textarea>
+            </div>
+
+            <div>
+              <label>Aplicaciones</label>
+              <textarea id="mapps" rows="6" placeholder="Una aplicación por línea"></textarea>
+            </div>
+
+            <div class="span2">
+              <label>Etiquetas</label>
+              <textarea id="mtags" rows="3" placeholder="Una etiqueta por línea"></textarea>
+            </div>
+
+            <div>
+              <label>Imagen principal</label>
+              <input id="mfile" type="file" accept="image/jpeg,image/png,image/webp">
+              <div class="preview" id="materialPreview">Vista previa</div>
+            </div>
+
+            <div>
+              <label>Galería</label>
+              <input id="mgallery" type="file" multiple accept="image/jpeg,image/png,image/webp">
+              <div class="gallery-preview" id="materialGalleryPreview"></div>
+            </div>
+
+            <div class="span2">
+              <label>
+                <input type="checkbox" id="mfeatured" style="width:auto">
+                Destacar en la página principal
+              </label>
+            </div>
+          </div>
+
+          <button class="btn" id="materialSaveBtn" type="submit">
+            Guardar material
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===============================
+         LISTADO DE MATERIALES
+    =============================== -->
+
+    <section data-panel="materials" hidden>
+      <div class="panel">
+        <h2>Materiales</h2>
+        <input id="materialSearch" placeholder="Buscar material...">
+        <div id="materialItems"></div>
+      </div>
+    </section>
+
   </main>
 
 </div>
@@ -974,6 +1157,8 @@ const CONFIG = window.COLORYMARMOL_CONFIG;
 
 const TABLE = "Productos";
 
+const MATERIAL_TABLE = "Materiales";
+
 const BUCKET = "productos";
 
 
@@ -990,6 +1175,8 @@ const $$ = selector =>
 
 let products = [];
 
+let materials = [];
+
 let mainFile = null;
 
 let galleryFiles = [];
@@ -997,6 +1184,11 @@ let galleryFiles = [];
 let existingGallery = [];
 
 let removedGallery = [];
+
+let materialMainFile = null;
+let materialGalleryFiles = [];
+let materialExistingGallery = [];
+let materialRemovedGallery = [];
 
 
 /* ======================================================
@@ -1169,7 +1361,11 @@ function view(name){
 
     new:"Nuevo producto",
 
-    items:"Productos"
+    items:"Productos",
+
+    "new-material":"Nuevo material",
+
+    materials:"Materiales"
 
   }[name];
 
@@ -1195,6 +1391,32 @@ $("#newTop").onclick =
     view("new");
 
   };
+
+
+$("#newMaterialTop").onclick =
+  () => {
+
+    resetMaterialForm();
+
+    view("new-material");
+
+  };
+
+const newMaterialMenu = document.querySelector('[data-view="new-material"]');
+if(newMaterialMenu){
+  newMaterialMenu.onclick = () => {
+    resetMaterialForm();
+    view("new-material");
+  };
+}
+
+const newProductMenu = document.querySelector('[data-view="new"]');
+if(newProductMenu){
+  newProductMenu.onclick = () => {
+    resetForm();
+    view("new");
+  };
+}
 
 
 /* ======================================================
@@ -1229,6 +1451,24 @@ async function loadProducts(){
 
   products =
     data || [];
+
+}
+
+
+async function loadMaterials(){
+
+  const { data, error } =
+    await sb
+      .from(MATERIAL_TABLE)
+      .select("*")
+      .order("created_at", { ascending:false });
+
+  if(error){
+    console.error("Error cargando materiales:", error);
+    throw error;
+  }
+
+  materials = data || [];
 
 }
 
@@ -1319,6 +1559,49 @@ function productRow(product){
 
 
 /* ======================================================
+   FILAS DE MATERIAL
+====================================================== */
+
+function materialRow(material){
+
+  const image =
+    material.imagen_principal ||
+    "productos/images/hero-colorymarmol.jpg";
+
+  const stateClass =
+    material.estado === "publicado"
+      ? "published"
+      : "draft";
+
+  return `
+    <div class="item">
+      <img src="${image}" alt="${material.nombre || ""}">
+
+      <div>
+        <h3>
+          ${material.nombre || "Sin nombre"}
+          ${material.destacado ? `<span class="pill">Destacado</span>` : ""}
+        </h3>
+
+        <p>
+          ${material.tipo || "Material"}
+          <span class="pill ${stateClass}">
+            ${material.estado || "borrador"}
+          </span>
+        </p>
+      </div>
+
+      <div class="actions">
+        <button class="small" onclick="editMaterial(${material.id})">Editar</button>
+        <button class="small danger" onclick="deleteMaterial(${material.id})">Eliminar</button>
+      </div>
+    </div>
+  `;
+
+}
+
+
+/* ======================================================
    RENDER
 ====================================================== */
 
@@ -1326,7 +1609,10 @@ async function render(){
 
   try{
 
-    await loadProducts();
+    await Promise.all([
+      loadProducts(),
+      loadMaterials()
+    ]);
 
 
     $("#total").textContent =
@@ -1368,7 +1654,28 @@ async function render(){
       "<p>No hay productos todavía.</p>";
 
 
+    $("#materialTotal").textContent = materials.length;
+
+    $("#materialPublished").textContent =
+      materials.filter(m => m.estado === "publicado").length;
+
+    $("#materialFeatured").textContent =
+      materials.filter(m => m.destacado).length;
+
+    $("#materialPhotos").textContent =
+      materials.filter(m => m.imagen_principal).length;
+
+    $("#recentMaterials").innerHTML =
+      materials
+        .slice(0,5)
+        .map(materialRow)
+        .join("")
+      ||
+      "<p>No hay materiales todavía.</p>";
+
+
     renderProductList();
+    renderMaterialList();
 
   }
   catch(error){
@@ -1376,7 +1683,7 @@ async function render(){
     console.error(error);
 
     alert(
-      "No fue posible cargar los productos."
+      "No fue posible cargar los productos o materiales."
     );
 
   }
@@ -1432,6 +1739,43 @@ $("#search")
   .addEventListener(
     "input",
     renderProductList
+  );
+
+
+function renderMaterialList(){
+
+  const query =
+    $("#materialSearch")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const list = materials.filter(material => {
+
+    if(!query) return true;
+
+    return [
+      material.nombre,
+      material.tipo,
+      material.descripcion_corta
+    ].some(value =>
+      String(value || "")
+        .toLowerCase()
+        .includes(query)
+    );
+
+  });
+
+  $("#materialItems").innerHTML =
+    list.map(materialRow).join("") ||
+    "<p>No hay resultados.</p>";
+
+}
+
+$("#materialSearch")
+  .addEventListener(
+    "input",
+    renderMaterialList
   );
 
 
@@ -1527,6 +1871,39 @@ async function uniqueSlug(
 
   }
 
+}
+
+
+async function uniqueMaterialSlug(name,currentID = null){
+
+  const base = slugify(name) || "material";
+  let slug = base;
+  let number = 1;
+
+  while(true){
+
+    const { data, error } =
+      await sb
+        .from(MATERIAL_TABLE)
+        .select("id")
+        .eq("slug",slug)
+        .limit(1);
+
+    if(error) throw error;
+
+    if(
+      !data.length ||
+      (
+        currentID &&
+        Number(data[0].id) === Number(currentID)
+      )
+    ){
+      return slug;
+    }
+
+    number++;
+    slug = `${base}-${number}`;
+  }
 }
 
 
@@ -1927,6 +2304,75 @@ function renderGalleryPreview(){
       }
     );
 
+}
+
+
+/* ======================================================
+   PREVISUALIZACIÓN DE MATERIAL
+====================================================== */
+
+$("#mfile").onchange = event => {
+
+  materialMainFile = event.target.files[0] || null;
+
+  if(!materialMainFile){
+    $("#materialPreview").textContent = "Vista previa";
+    return;
+  }
+
+  const url = URL.createObjectURL(materialMainFile);
+  $("#materialPreview").innerHTML = `<img src="${url}">`;
+};
+
+
+$("#mgallery").onchange = event => {
+  materialGalleryFiles = [...event.target.files];
+  renderMaterialGalleryPreview();
+};
+
+
+function renderMaterialGalleryPreview(){
+
+  const container = $("#materialGalleryPreview");
+  container.innerHTML = "";
+
+  materialExistingGallery.forEach(url => {
+
+    if(materialRemovedGallery.includes(url)) return;
+
+    const div = document.createElement("div");
+    div.className = "gallery-thumb";
+    div.innerHTML = `
+      <img src="${url}">
+      <button type="button">×</button>
+    `;
+
+    div.querySelector("button").onclick = () => {
+      materialRemovedGallery.push(url);
+      renderMaterialGalleryPreview();
+    };
+
+    container.appendChild(div);
+  });
+
+  materialGalleryFiles.forEach((file,index) => {
+
+    const div = document.createElement("div");
+    div.className = "gallery-thumb";
+
+    const url = URL.createObjectURL(file);
+    div.innerHTML = `
+      <img src="${url}">
+      <button type="button">×</button>
+    `;
+
+    div.querySelector("button").onclick = () => {
+      materialGalleryFiles.splice(index,1);
+      renderMaterialGalleryPreview();
+    };
+
+    container.appendChild(div);
+  });
 }
 
 
@@ -2472,6 +2918,283 @@ window.deleteProduct =
     );
 
   };
+
+
+/* ======================================================
+   GUARDAR MATERIAL
+====================================================== */
+
+$("#materialForm")
+  .addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+      clearMessage($("#materialFormStatus"));
+
+      const button = $("#materialSaveBtn");
+      button.disabled = true;
+      button.textContent = "Guardando...";
+
+      try{
+
+        const id = $("#mid").value
+          ? Number($("#mid").value)
+          : null;
+
+        const old = id
+          ? materials.find(material => Number(material.id) === id)
+          : null;
+
+        let slug = $("#mslug").value;
+
+        if(!slug){
+          slug = await uniqueMaterialSlug(
+            $("#mname").value.trim(),
+            id
+          );
+        }
+
+        let principal = old ? old.imagen_principal : null;
+
+        if(materialMainFile){
+          principal = await uploadImage(
+            materialMainFile,
+            "materiales",
+            slug,
+            "principal"
+          );
+        }
+
+        let gallery = materialExistingGallery.filter(
+          url => !materialRemovedGallery.includes(url)
+        );
+
+        for(const file of materialGalleryFiles){
+          gallery.push(
+            await uploadImage(
+              file,
+              "materiales",
+              slug,
+              "galeria"
+            )
+          );
+        }
+
+        const payload = {
+          nombre: $("#mname").value.trim(),
+          slug,
+          tipo: $("#mtype").value.trim(),
+          descripcion_corta: $("#mshort").value.trim(),
+          descripcion: $("#mdesc").value.trim(),
+          caracteristicas: $("#mfeatures")
+            .value
+            .split("\n")
+            .map(x => x.trim())
+            .filter(Boolean),
+          aplicaciones: $("#mapps")
+            .value
+            .split("\n")
+            .map(x => x.trim())
+            .filter(Boolean),
+          etiquetas: $("#mtags")
+            .value
+            .split("\n")
+            .map(x => x.trim())
+            .filter(Boolean),
+          imagen_principal: principal,
+          galeria: gallery,
+          destacado: $("#mfeatured").checked,
+          estado: $("#mstatus").value,
+          updated_at: new Date().toISOString()
+        };
+
+        let result;
+
+        if(id){
+          result = await sb
+            .from(MATERIAL_TABLE)
+            .update(payload)
+            .eq("id",id)
+            .select()
+            .single();
+        }else{
+          result = await sb
+            .from(MATERIAL_TABLE)
+            .insert(payload)
+            .select()
+            .single();
+        }
+
+        if(result.error) throw result.error;
+
+        if(
+          materialMainFile &&
+          old &&
+          old.imagen_principal &&
+          old.imagen_principal !== principal
+        ){
+          await deleteImage(old.imagen_principal);
+        }
+
+        for(const url of materialRemovedGallery){
+          await deleteImage(url);
+        }
+
+        showMessage(
+          $("#materialFormStatus"),
+          id
+            ? "Material actualizado correctamente."
+            : "Material guardado correctamente.",
+          "ok"
+        );
+
+        await render();
+
+        setTimeout(() => {
+          resetMaterialForm();
+          view("materials");
+        },700);
+
+      }
+      catch(error){
+
+        console.error(error);
+
+        showMessage(
+          $("#materialFormStatus"),
+          "Error: " + (
+            error.message ||
+            "No fue posible guardar el material."
+          ),
+          "error"
+        );
+
+      }
+      finally{
+        button.disabled = false;
+        button.textContent = "Guardar material";
+      }
+    }
+  );
+
+
+/* ======================================================
+   EDITAR MATERIAL
+====================================================== */
+
+window.editMaterial = id => {
+
+  const material = materials.find(
+    item => Number(item.id) === Number(id)
+  );
+
+  if(!material) return;
+
+  resetMaterialForm();
+
+  $("#mid").value = material.id;
+  $("#mslug").value = material.slug || "";
+  $("#mname").value = material.nombre || "";
+  $("#mtype").value = material.tipo || "";
+  $("#mstatus").value = material.estado || "borrador";
+  $("#mshort").value = material.descripcion_corta || "";
+  $("#mdesc").value = material.descripcion || "";
+
+  $("#mfeatures").value = Array.isArray(material.caracteristicas)
+    ? material.caracteristicas.join("\n")
+    : "";
+
+  $("#mapps").value = Array.isArray(material.aplicaciones)
+    ? material.aplicaciones.join("\n")
+    : "";
+
+  $("#mtags").value = Array.isArray(material.etiquetas)
+    ? material.etiquetas.join("\n")
+    : "";
+
+  $("#mfeatured").checked = !!material.destacado;
+
+  materialExistingGallery = Array.isArray(material.galeria)
+    ? [...material.galeria]
+    : [];
+
+  $("#materialPreview").innerHTML = material.imagen_principal
+    ? `<img src="${material.imagen_principal}">`
+    : "Vista previa";
+
+  renderMaterialGalleryPreview();
+
+  $("#materialFormTitle").textContent = "Editar material";
+  view("new-material");
+};
+
+
+/* ======================================================
+   ELIMINAR MATERIAL
+====================================================== */
+
+window.deleteMaterial = async id => {
+
+  const material = materials.find(
+    item => Number(item.id) === Number(id)
+  );
+
+  if(!material) return;
+
+  const confirmDelete = confirm(
+    `¿Estás seguro de que deseas eliminar el material "${material.nombre}"?`
+  );
+
+  if(!confirmDelete) return;
+
+  const { error } = await sb
+    .from(MATERIAL_TABLE)
+    .delete()
+    .eq("id",id);
+
+  if(error){
+    console.error(error);
+    alert("No fue posible eliminar el material.");
+    return;
+  }
+
+  if(material.imagen_principal){
+    await deleteImage(material.imagen_principal);
+  }
+
+  if(Array.isArray(material.galeria)){
+    for(const url of material.galeria){
+      await deleteImage(url);
+    }
+  }
+
+  await render();
+  alert("Material eliminado correctamente.");
+};
+
+
+/* ======================================================
+   RESET FORMULARIO MATERIAL
+====================================================== */
+
+function resetMaterialForm(){
+
+  $("#materialForm").reset();
+  $("#mid").value = "";
+  $("#mslug").value = "";
+
+  materialMainFile = null;
+  materialGalleryFiles = [];
+  materialExistingGallery = [];
+  materialRemovedGallery = [];
+
+  $("#materialPreview").textContent = "Vista previa";
+  $("#materialGalleryPreview").innerHTML = "";
+  $("#materialFormTitle").textContent = "Nuevo material";
+
+  clearMessage($("#materialFormStatus"));
+}
 
 
 /* ======================================================
