@@ -1726,7 +1726,42 @@
 
     }
 
-  </style>
+  
+
+    /* =====================================
+       NUEVAS SECCIONES CORPORATIVAS
+    ====================================== */
+    .solutions-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:34px}
+    .solution-card{position:relative;min-height:235px;padding:26px 22px;border:1px solid #ded6c9;background:#fff;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;transition:.28s ease}
+    .solution-card::before{content:"";position:absolute;inset:0;background:linear-gradient(145deg,rgba(183,127,43,.06),transparent 55%);pointer-events:none}
+    .solution-number{font-family:Georgia,serif;font-size:42px;color:rgba(183,127,43,.22);line-height:1;margin-bottom:auto}
+    .solution-card h3{font-family:Georgia,serif;font-size:21px;margin:0 0 9px}
+    .solution-card p{font-size:13px;line-height:1.65;color:#706b63;margin:0}
+    .solution-card:hover{transform:translateY(-5px);border-color:#b77f2b;box-shadow:0 18px 40px rgba(25,23,19,.08)}
+
+    .about-section{background:#171715;color:#fff}
+    .about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:center}
+    .about-section .display{color:#fff}
+    .about-section p{color:#c8c4bd;line-height:1.8}
+    .about-points{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .about-point{padding:22px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.035)}
+    .about-point strong{display:block;color:#d09a49;font-family:Georgia,serif;font-size:20px;margin-bottom:7px}
+    .about-point span{font-size:12px;color:#bbb7b0;line-height:1.5}
+
+    .location-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:stretch}
+    .location-card{background:#f4f0e8;padding:34px;border:1px solid #e1d8ca}
+    .location-card h3{font-family:Georgia,serif;font-size:28px;margin:8px 0 16px}
+    .location-card p{line-height:1.7;color:#68635c}
+    .location-data{margin:22px 0;padding-top:20px;border-top:1px solid #d8cdbd}
+    .location-data b{display:block;color:#171715;margin-bottom:6px}
+    .map-wrap{min-height:390px;background:#ece8e0;border:1px solid #e1d8ca;overflow:hidden}
+    .map-wrap iframe{width:100%;height:100%;min-height:390px;border:0;display:block}
+
+    @media(max-width:1050px){.solutions-grid{grid-template-columns:repeat(3,1fr)}.about-grid,.location-grid{grid-template-columns:1fr}}
+    @media(max-width:700px){.solutions-grid{grid-template-columns:1fr 1fr}.about-points{grid-template-columns:1fr}.solution-card{min-height:200px}.map-wrap,.map-wrap iframe{min-height:320px}}
+    @media(max-width:480px){.solutions-grid{grid-template-columns:1fr}}
+
+</style>
 
 </head>
 
@@ -1793,6 +1828,10 @@
         INICIO
       </a>
 
+      <a href="#soluciones">
+        SOLUCIONES
+      </a>
+
       <a href="#productos">
         PRODUCTOS
       </a>
@@ -1807,6 +1846,10 @@
 
       <a href="#proceso">
         PROCESO
+      </a>
+
+      <a href="#nosotros">
+        NOSOTROS
       </a>
 
       <a href="#contacto">
@@ -2053,6 +2096,29 @@
 
 </section>
 
+
+
+<!-- =====================================
+     NUESTRAS SOLUCIONES
+====================================== -->
+
+<section class="section" id="soluciones">
+  <div class="container">
+    <div class="heading">
+      <span class="tag">NUESTRAS SOLUCIONES</span>
+      <h2 class="display">Diseñamos cada espacio alrededor de ti</h2>
+      <p>Fabricación personalizada para proyectos residenciales y comerciales, desde el diseño hasta la instalación.</p>
+    </div>
+
+    <div class="solutions-grid">
+      <article class="solution-card"><span class="solution-number">01</span><h3>Cocinas</h3><p>Diseños integrales a medida con distribución, almacenamiento y acabados pensados para cada espacio.</p></article>
+      <article class="solution-card"><span class="solution-number">02</span><h3>Closets y vestidores</h3><p>Organización personalizada, interiores funcionales y soluciones de piso a techo.</p></article>
+      <article class="solution-card"><span class="solution-number">03</span><h3>Baños</h3><p>Muebles, cubiertas y soluciones que combinan resistencia, funcionalidad y diseño.</p></article>
+      <article class="solution-card"><span class="solution-number">04</span><h3>Cubiertas</h3><p>Piedra sinterizada, mármol, cuarzo, granito y superficies para cocinas, barras y baños.</p></article>
+      <article class="solution-card"><span class="solution-number">05</span><h3>Mobiliario a medida</h3><p>Muebles especiales para TV, almacenamiento y proyectos personalizados para interiores.</p></article>
+    </div>
+  </div>
+</section>
 
 
 <!-- =====================================
@@ -2440,6 +2506,29 @@
 
 
 <!-- =====================================
+     SOBRE COLORYMARMOL
+====================================== -->
+
+<section class="section about-section" id="nosotros">
+  <div class="container about-grid">
+    <div>
+      <span class="tag">SOBRE COLORYMARMOL</span>
+      <h2 class="display">Del concepto a un espacio hecho a tu medida</h2>
+      <p>En Cocinas ColoryMarmol desarrollamos soluciones de interiorismo y mobiliario personalizado, cuidando la selección de materiales, la fabricación y la instalación para lograr espacios funcionales, duraderos y con una identidad propia.</p>
+      <p>Trabajamos cada proyecto de forma personalizada para adaptarnos a las dimensiones, necesidades y estilo de cada cliente.</p>
+      <a class="btn" href="#cotizar">Cuéntanos tu proyecto</a>
+    </div>
+    <div class="about-points">
+      <div class="about-point"><strong>A medida</strong><span>Diseños adaptados a las dimensiones reales de tu espacio.</span></div>
+      <div class="about-point"><strong>Materiales</strong><span>Selección de superficies, maderas, herrajes y acabados.</span></div>
+      <div class="about-point"><strong>Fabricación</strong><span>Control del proyecto desde la planeación hasta la producción.</span></div>
+      <div class="about-point"><strong>Instalación</strong><span>Montaje y ajustes para entregar un proyecto integral.</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================
      PROFESIONALES
 ====================================== -->
 
@@ -2603,6 +2692,35 @@
 
 </section>
 
+
+
+<!-- =====================================
+     UBICACIÓN
+====================================== -->
+<section class="section" id="ubicacion">
+  <div class="container">
+    <div class="heading">
+      <span class="tag">VISÍTANOS</span>
+      <h2 class="display">Conoce nuestra ubicación</h2>
+      <p>Acércate a ColoryMarmol para conocer materiales, acabados y conversar sobre tu proyecto.</p>
+    </div>
+    <div class="location-grid">
+      <div class="location-card">
+        <span class="tag">COLORYMARMOL</span>
+        <h3>Diseño y fabricación a medida</h3>
+        <p id="locationText">CDMX y Estado de México</p>
+        <div class="location-data">
+          <b>Horario de atención</b>
+          <span id="locationHours">Lun–Sáb 9:00–18:00</span>
+        </div>
+        <a class="btn" id="mapsButton" href="#" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
+      </div>
+      <div class="map-wrap" id="mapWrap">
+        <iframe id="locationMap" title="Ubicación de Cocinas ColoryMarmol" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
 
 </main>
 
@@ -3579,6 +3697,22 @@ async function loadMaterials(){
    INICIAR CATÁLOGO
 ========================================== */
 
+
+// Ubicación: se alimenta desde config.js. Al colocar la dirección exacta allí,
+// el mapa y el botón "Cómo llegar" se actualizarán automáticamente.
+(function setupLocation(){
+  const location = (cfg && cfg.location) ? cfg.location : "CDMX y Estado de México";
+  const hours = (cfg && cfg.hours) ? cfg.hours : "Lun–Sáb 9:00–18:00";
+  const text = document.getElementById("locationText");
+  const hoursEl = document.getElementById("locationHours");
+  const button = document.getElementById("mapsButton");
+  const map = document.getElementById("locationMap");
+  if(text) text.textContent = location;
+  if(hoursEl) hoursEl.textContent = hours;
+  const query = encodeURIComponent(location);
+  if(button) button.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
+  if(map) map.src = `https://www.google.com/maps?q=${query}&output=embed`;
+})();
 
 loadProducts();
 loadMaterials();
