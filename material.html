@@ -1,0 +1,1138 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
+<title>
+  Material | Cocinas ColoryMarmol
+</title>
+
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- CONFIGURACIÓN -->
+<script src="config.js"></script>
+
+
+<style>
+
+:root{
+
+  --bg:#f8f6f1;
+
+  --ink:#171715;
+
+  --gold:#b77f2b;
+
+  --gold-dark:#986820;
+
+  --line:#e2d9cc;
+
+  --muted:#6e685f;
+
+  --dark:#111111;
+
+}
+
+
+*{
+
+  box-sizing:border-box;
+
+}
+
+
+html{
+
+  scroll-behavior:smooth;
+
+}
+
+
+body{
+
+  margin:0;
+
+  background:var(--bg);
+
+  color:var(--ink);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  line-height:1.55;
+
+}
+
+
+a{
+
+  text-decoration:none;
+
+  color:inherit;
+
+}
+
+
+img{
+
+  display:block;
+
+  max-width:100%;
+
+}
+
+
+.container{
+
+  width:min(
+    1180px,
+    calc(100% - 34px)
+  );
+
+  margin:auto;
+
+}
+
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+
+  position:sticky;
+
+  top:0;
+
+  z-index:50;
+
+  background:var(--dark);
+
+  color:white;
+
+  padding:18px 0;
+
+}
+
+
+.nav{
+
+  display:flex;
+
+  justify-content:
+    space-between;
+
+  align-items:center;
+
+  gap:20px;
+
+}
+
+
+.logo{
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size:23px;
+
+  font-weight:bold;
+
+}
+
+
+.header-actions{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+}
+
+
+
+/* =========================
+   BOTONES
+========================= */
+
+.btn{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:8px;
+
+  padding:13px 20px;
+
+  border:0;
+
+  border-radius:5px;
+
+  background:var(--gold);
+
+  color:white;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:.2s ease;
+
+}
+
+
+.btn:hover{
+
+  background:var(--gold-dark);
+
+  transform:
+    translateY(-1px);
+
+}
+
+
+.btn-back-home{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:9px;
+
+  padding:11px 16px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.26);
+
+  border-radius:6px;
+
+  background:transparent;
+
+  color:white;
+
+  font-size:12px;
+
+  font-weight:700;
+
+  transition:.2s ease;
+
+}
+
+
+.btn-back-home:hover{
+
+  background:white;
+
+  color:#171715;
+
+}
+
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+
+  display:grid;
+
+  grid-template-columns:
+    1.15fr
+    .85fr;
+
+  gap:45px;
+
+  align-items:center;
+
+  padding:60px 0;
+
+}
+
+
+.main-image{
+
+  width:100%;
+
+  height:520px;
+
+  object-fit:cover;
+
+  border-radius:10px;
+
+  cursor:zoom-in;
+
+  background:#e8e3db;
+
+}
+
+
+.tag{
+
+  display:inline-block;
+
+  font-size:11px;
+
+  letter-spacing:3px;
+
+  color:var(--gold);
+
+  font-weight:bold;
+
+  text-transform:uppercase;
+
+}
+
+
+.hero h1{
+
+  margin:
+    10px 0 15px;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size:56px;
+
+  line-height:1.05;
+
+}
+
+
+.hero p{
+
+  color:var(--muted);
+
+  font-size:16px;
+
+}
+
+
+.chips{
+
+  display:flex;
+
+  gap:8px;
+
+  flex-wrap:wrap;
+
+  margin:18px 0 24px;
+
+}
+
+
+.chip{
+
+  background:#eee6da;
+
+  padding:9px 12px;
+
+  border-radius:4px;
+
+  font-size:12px;
+
+}
+
+
+.back-catalog{
+
+  display:inline-block;
+
+  margin-top:20px;
+
+  color:var(--gold);
+
+  font-weight:bold;
+
+  font-size:13px;
+
+}
+
+
+
+/* =========================
+   SECCIONES
+========================= */
+
+.section{
+
+  padding:65px 0;
+
+}
+
+
+.display{
+
+  margin:
+    10px 0
+    20px;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size:42px;
+
+  line-height:1.1;
+
+}
+
+
+.detail{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:55px;
+
+}
+
+
+.detail p{
+
+  color:var(--muted);
+
+}
+
+
+.features{
+
+  padding-left:20px;
+
+}
+
+
+.features li{
+
+  margin:10px 0;
+
+}
+
+
+
+/* =========================
+   GALERÍA
+========================= */
+
+.gallery{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:12px;
+
+  margin-top:25px;
+
+}
+
+
+.gallery img{
+
+  width:100%;
+
+  height:210px;
+
+  object-fit:cover;
+
+  border-radius:8px;
+
+  cursor:zoom-in;
+
+  transition:.2s ease;
+
+}
+
+
+.gallery img:hover{
+
+  transform:
+    translateY(-2px);
+
+}
+
+
+
+/* =========================
+   MATERIAL
+========================= */
+
+.material-box{
+
+  margin-top:30px;
+
+  padding:25px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:10px;
+
+  background:#eee7dd;
+
+}
+
+
+.material-box h3{
+
+  margin:
+    5px 0
+    10px;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size:27px;
+
+}
+
+
+.material-box p{
+
+  margin:0;
+
+}
+
+
+
+/* =========================
+   CTA
+========================= */
+
+.cta{
+
+  padding:55px;
+
+  margin:
+    30px 0
+    70px;
+
+  text-align:center;
+
+  border-radius:12px;
+
+  background:#181816;
+
+  color:white;
+
+}
+
+
+.cta h2{
+
+  margin:
+    8px 0 12px;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size:40px;
+
+}
+
+
+.cta p{
+
+  margin:
+    0 auto
+    25px;
+
+  max-width:700px;
+
+  color:#cfcac1;
+
+}
+
+
+
+/* =========================
+   NO ENCONTRADO
+========================= */
+
+.empty{
+
+  min-height:65vh;
+
+  display:grid;
+
+  place-items:center;
+
+  text-align:center;
+
+}
+
+
+.empty-inner{
+
+  max-width:600px;
+
+}
+
+
+.empty p{
+
+  color:var(--muted);
+
+  margin-bottom:22px;
+
+}
+
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+
+  background:#111;
+
+  color:white;
+
+  padding:40px 0;
+
+}
+
+
+.footer-inner{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:
+    space-between;
+
+  gap:20px;
+
+}
+
+
+
+/* =========================
+   LIGHTBOX
+========================= */
+
+.lightbox{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:1000;
+
+  display:none;
+
+  place-items:center;
+
+  padding:25px;
+
+  background:
+    rgba(0,0,0,.92);
+
+}
+
+
+.lightbox.open{
+
+  display:grid;
+
+}
+
+
+.lightbox img{
+
+  max-width:95vw;
+
+  max-height:90vh;
+
+  object-fit:contain;
+
+}
+
+
+.lightbox button{
+
+  position:absolute;
+
+  top:20px;
+
+  right:25px;
+
+  width:45px;
+
+  height:45px;
+
+  border:0;
+
+  border-radius:50%;
+
+  background:
+    rgba(255,255,255,.15);
+
+  color:white;
+
+  font-size:28px;
+
+  cursor:pointer;
+
+}
+
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+  .hero,
+  .detail{
+
+    grid-template-columns:1fr;
+
+  }
+
+
+  .main-image{
+
+    height:430px;
+
+  }
+
+
+  .gallery{
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+  }
+
+}
+
+
+@media(max-width:600px){
+
+  .container{
+
+    width:
+      min(
+        100% - 24px,
+        1180px
+      );
+
+  }
+
+
+  .header{
+
+    padding:12px 0;
+
+  }
+
+
+  .logo{
+
+    font-size:18px;
+
+  }
+
+
+  .header-actions{
+
+    gap:6px;
+
+  }
+
+
+  .btn-back-home{
+
+    padding:10px 12px;
+
+  }
+
+
+  .btn-back-home .label{
+
+    display:none;
+
+  }
+
+
+  .header .btn{
+
+    padding:10px 12px;
+
+    font-size:11px;
+
+  }
+
+
+  .hero{
+
+    padding:35px 0;
+
+    gap:25px;
+
+  }
+
+
+  .main-image{
+
+    height:330px;
+
+  }
+
+
+  .hero h1{
+
+    font-size:38px;
+
+  }
+
+
+  .display{
+
+    font-size:34px;
+
+  }
+
+
+  .section{
+
+    padding:45px 0;
+
+  }
+
+
+  .gallery{
+
+    grid-template-columns:1fr;
+
+  }
+
+
+  .gallery img{
+
+    height:260px;
+
+  }
+
+
+  .cta{
+
+    padding:
+      40px
+      22px;
+
+  }
+
+
+  .cta h2{
+
+    font-size:32px;
+
+  }
+
+
+  .footer-inner{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+  <div class="container nav">
+
+
+    <a
+      class="logo"
+      href="index.html"
+    >
+      Cocinas ColoryMarmol
+    </a>
+
+
+    <div class="header-actions">
+
+
+      <a
+        href="index.html"
+        class="btn-back-home"
+      >
+
+        <span>
+          ←
+        </span>
+
+        <span class="label">
+          Regresar a la página principal
+        </span>
+
+      </a>
+
+
+      <a
+        class="btn"
+        href="index.html#cotizar"
+      >
+        Cotizar
+      </a>
+
+
+    </div>
+
+
+  </div>
+
+</header>
+
+
+
+<!-- =========================
+     MATERIAL
+========================= -->
+
+<main
+  class="container"
+  id="app"
+>
+
+  <section class="empty">
+
+    <div class="empty-inner">
+
+      <span class="tag">
+        COCINAS COLORYMARMOL
+      </span>
+
+      <h1 class="display">
+        Cargando material...
+      </h1>
+
+      <p>
+        Estamos obteniendo la información del catálogo.
+      </p>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+  <div class="container footer-inner">
+
+    <div>
+      Cocinas ColoryMarmol ·
+      Diseño ·
+      Fabricación ·
+      Instalación
+    </div>
+
+
+    <a
+      href="index.html"
+      class="btn-back-home"
+    >
+
+      <span>
+        ←
+      </span>
+
+      <span class="label">
+        Regresar a la página principal
+      </span>
+
+    </a>
+
+  </div>
+
+</footer>
+
+
+
+<!-- =========================
+     LIGHTBOX
+========================= -->
+
+<div
+  class="lightbox"
+  id="lightbox"
+>
+
+  <button
+    type="button"
+    id="lightboxClose"
+  >
+    ×
+  </button>
+
+  <img
+    id="lightboxImage"
+    alt="Imagen ampliada"
+  >
+
+</div>
+
+
+
+<script>
+const cfg = window.COLORYMARMOL_CONFIG;
+const sb = window.supabaseClient;
+const TABLE = "Materiales";
+const app = document.getElementById("app");
+const params = new URLSearchParams(window.location.search);
+const slug = params.get("slug");
+const id = params.get("id");
+
+function esc(value){
+  return String(value || "")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function arrayValue(value){ return Array.isArray(value) ? value : []; }
+
+async function loadMaterial(){
+  if(!sb){ showError("No fue posible conectar con el catálogo de materiales."); return; }
+  if(!slug && !id){ showError("No se indicó ningún material."); return; }
+  try{
+    let query = sb.from(TABLE).select("*").eq("estado","publicado");
+    query = slug ? query.eq("slug",slug) : query.eq("id",id);
+    const {data,error} = await query.limit(1).maybeSingle();
+    if(error){ console.error(error); showError("No fue posible cargar este material."); return; }
+    if(!data){ showError("El material no existe o todavía no está publicado."); return; }
+    renderMaterial(data);
+  }catch(error){ console.error(error); showError("Ocurrió un problema al cargar el material."); }
+}
+
+function renderMaterial(material){
+  const features = arrayValue(material.caracteristicas);
+  const applications = arrayValue(material.aplicaciones);
+  const tags = arrayValue(material.etiquetas);
+  const gallery = [material.imagen_principal, ...arrayValue(material.galeria)]
+    .filter(Boolean).filter((value,index,array)=>array.indexOf(value)===index);
+  const name = esc(material.nombre || "Material");
+  const mainImage = material.imagen_principal || "materials/images/hero-colorymarmol.jpg";
+  const whatsappText = encodeURIComponent(`Hola, vi el material "${material.nombre}" en la página de Cocinas ColoryMarmol y me gustaría solicitar información y una cotización para mi proyecto.`);
+  const whatsappURL = `https://wa.me/${cfg.whatsapp}?text=${whatsappText}`;
+  document.title = `${material.nombre} | Materiales ColoryMarmol`;
+
+  app.innerHTML = `
+    <section class="hero">
+      <div><img class="main-image" src="${mainImage}" alt="${name}" data-lightbox></div>
+      <div>
+        <span class="tag">${esc(material.tipo || "MATERIAL")}</span>
+        <h1>${name}</h1>
+        <p>${esc(material.descripcion_corta || material.descripcion || "")}</p>
+        <div class="chips">
+          ${material.destacado ? '<span class="chip">Material destacado</span>' : ''}
+          <span class="chip">Proyectos a medida</span>
+          <span class="chip">Asesoría personalizada</span>
+        </div>
+        <a class="btn" href="${whatsappURL}" target="_blank" rel="noopener noreferrer">Cotizar con este material</a><br>
+        <a class="back-catalog" href="index.html#materiales">← Volver a materiales</a>
+      </div>
+    </section>
+
+    ${gallery.length ? `
+    <section class="section">
+      <span class="tag">GALERÍA DEL MATERIAL</span>
+      <h2 class="display">Texturas, vetas y acabados</h2>
+      <div class="gallery">${gallery.map(image=>`<img src="${image}" alt="${name}" loading="lazy" data-lightbox>`).join("")}</div>
+    </section>` : ''}
+
+    <section class="section">
+      <div class="detail">
+        <div>
+          <span class="tag">DESCRIPCIÓN</span>
+          <h2 class="display">Un material para proyectos con identidad</h2>
+          <p>${esc(material.descripcion || material.descripcion_corta || "")}</p>
+          ${tags.length ? `<div class="chips">${tags.map(tag=>`<span class="chip">${esc(tag)}</span>`).join("")}</div>` : ''}
+        </div>
+        <div>
+          <span class="tag">CARACTERÍSTICAS</span>
+          <h2 class="display">Propiedades y aplicaciones</h2>
+          <ul class="features">${(features.length ? features : ["Material seleccionado para proyectos personalizados","Aplicación según requerimientos del proyecto"]).map(f=>`<li>${esc(f)}</li>`).join("")}</ul>
+          ${applications.length ? `<h3>Aplicaciones</h3><ul class="features">${applications.map(a=>`<li>${esc(a)}</li>`).join("")}</ul>` : ''}
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <span class="tag">COTIZA TU PROYECTO</span>
+      <h2>¿Quieres utilizar ${name} en tu espacio?</h2>
+      <p>Cuéntanos qué deseas fabricar y te ayudamos a definir medidas, aplicación y detalles del proyecto.</p>
+      <a class="btn" href="${whatsappURL}" target="_blank" rel="noopener noreferrer">Solicitar cotización</a>
+    </section>`;
+  enableLightbox();
+}
+
+function showError(message){
+  app.innerHTML = `<section class="empty"><div class="empty-inner"><span class="tag">COCINAS COLORYMARMOL</span><h1 class="display">Material no encontrado</h1><p>${esc(message)}</p><a class="btn" href="index.html">← Regresar a la página principal</a></div></section>`;
+}
+function enableLightbox(){
+  const lightbox=document.getElementById("lightbox"), image=document.getElementById("lightboxImage");
+  document.querySelectorAll("[data-lightbox]").forEach(item=>{ item.onclick=()=>{image.src=item.src;lightbox.classList.add("open");}; });
+}
+document.getElementById("lightboxClose").onclick=()=>document.getElementById("lightbox").classList.remove("open");
+document.getElementById("lightbox").onclick=e=>{if(e.target.id==="lightbox")e.currentTarget.classList.remove("open");};
+loadMaterial();
+</script>
+</body>
+
+</html>
