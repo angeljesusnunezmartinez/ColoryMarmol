@@ -29,6 +29,20 @@
     content="#151513"
   >
 
+  <!-- SEO / REDES SOCIALES -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="Cocinas ColoryMarmol">
+  <meta property="og:title" content="Cocinas ColoryMarmol | Diseño, fabricación e instalación a medida">
+  <meta property="og:description" content="Cocinas, closets, vestidores, baños, cubiertas y mobiliario a medida con materiales premium.">
+  <meta property="og:url" content="https://colorymarmol.com/">
+  <meta property="og:image" content="https://colorymarmol.com/productos/images/hero-colorymarmol.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cocinas ColoryMarmol">
+  <meta name="twitter:description" content="Diseño, fabricación e instalación de espacios a medida.">
+  <meta name="twitter:image" content="https://colorymarmol.com/productos/images/hero-colorymarmol.jpg">
+
+
 
   <!-- =====================================
        SUPABASE
@@ -1761,6 +1775,37 @@
     @media(max-width:700px){.solutions-grid{grid-template-columns:1fr 1fr}.about-points{grid-template-columns:1fr}.solution-card{min-height:200px}.map-wrap,.map-wrap iframe{min-height:320px}}
     @media(max-width:480px){.solutions-grid{grid-template-columns:1fr}}
 
+
+    /* =====================================
+       PORTAFOLIO / TESTIMONIOS / FAQ
+    ====================================== */
+    .compare-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+    .compare-card{background:#fff;border:1px solid var(--line);overflow:hidden}
+    .compare-images{display:grid;grid-template-columns:1fr 1fr}
+    .compare-images figure{margin:0;position:relative;min-height:260px;background:#eee;overflow:hidden}
+    .compare-images img{width:100%;height:100%;min-height:260px;object-fit:cover}
+    .compare-images figcaption{position:absolute;left:12px;bottom:12px;background:rgba(21,21,19,.82);color:#fff;padding:7px 10px;font-size:11px;letter-spacing:.08em}
+    .compare-body{padding:20px}
+    .compare-body h3{font-family:Georgia,serif;margin:0 0 8px;font-size:22px}
+    .compare-body p{margin:0;color:var(--muted)}
+    .testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .testimonial-card{background:#fff;border:1px solid var(--line);padding:25px}
+    .testimonial-card blockquote{font-family:Georgia,serif;font-size:18px;line-height:1.65;margin:0 0 18px}
+    .testimonial-card strong{display:block}
+    .testimonial-card span{font-size:12px;color:var(--muted)}
+    .faq-wrap{max-width:900px;margin:0 auto}
+    .faq-wrap details{border-bottom:1px solid var(--line);padding:0}
+    .faq-wrap summary{cursor:pointer;list-style:none;padding:20px 4px;font-weight:700;display:flex;justify-content:space-between;gap:20px}
+    .faq-wrap summary::-webkit-details-marker{display:none}
+    .faq-wrap summary::after{content:"+";font-size:22px;color:var(--gold)}
+    .faq-wrap details[open] summary::after{content:"−"}
+    .faq-wrap details p{margin:0;padding:0 4px 20px;color:var(--muted);line-height:1.75}
+    .section-note{max-width:780px;margin:18px auto 0;text-align:center;color:var(--muted);font-size:13px}
+    .privacy-link{font-size:12px;text-decoration:underline;text-underline-offset:3px}
+    .hidden-section{display:none!important}
+    @media(max-width:850px){.compare-grid,.testimonials-grid{grid-template-columns:1fr}}
+    @media(max-width:600px){.compare-images{grid-template-columns:1fr}.compare-images figure,.compare-images img{min-height:220px}}
+
 </style>
 
 </head>
@@ -1850,6 +1895,10 @@
 
       <a href="#nosotros">
         NOSOTROS
+      </a>
+
+      <a href="#preguntas">
+        FAQ
       </a>
 
       <a href="#contacto">
@@ -2111,11 +2160,11 @@
     </div>
 
     <div class="solutions-grid">
-      <article class="solution-card"><span class="solution-number">01</span><h3>Cocinas</h3><p>Diseños integrales a medida con distribución, almacenamiento y acabados pensados para cada espacio.</p></article>
-      <article class="solution-card"><span class="solution-number">02</span><h3>Closets y vestidores</h3><p>Organización personalizada, interiores funcionales y soluciones de piso a techo.</p></article>
-      <article class="solution-card"><span class="solution-number">03</span><h3>Baños</h3><p>Muebles, cubiertas y soluciones que combinan resistencia, funcionalidad y diseño.</p></article>
-      <article class="solution-card"><span class="solution-number">04</span><h3>Cubiertas</h3><p>Piedra sinterizada, mármol, cuarzo, granito y superficies para cocinas, barras y baños.</p></article>
-      <article class="solution-card"><span class="solution-number">05</span><h3>Mobiliario a medida</h3><p>Muebles especiales para TV, almacenamiento y proyectos personalizados para interiores.</p></article>
+      <a class="solution-card" href="#productos" data-solution-filter="cocinas"><span class="solution-number">01</span><h3>Cocinas</h3><p>Diseños integrales a medida con distribución, almacenamiento y acabados pensados para cada espacio.</p></a>
+      <a class="solution-card" href="#productos" data-solution-filter="closets"><span class="solution-number">02</span><h3>Closets y vestidores</h3><p>Organización personalizada, interiores funcionales y soluciones de piso a techo.</p></a>
+      <a class="solution-card" href="#productos" data-solution-filter="banos"><span class="solution-number">03</span><h3>Baños</h3><p>Muebles, cubiertas y soluciones que combinan resistencia, funcionalidad y diseño.</p></a>
+      <a class="solution-card" href="#materiales"><span class="solution-number">04</span><h3>Cubiertas</h3><p>Piedra sinterizada, mármol, cuarzo, granito y superficies para cocinas, barras y baños.</p></a>
+      <a class="solution-card" href="#cotizar"><span class="solution-number">05</span><h3>Mobiliario a medida</h3><p>Muebles especiales para TV, almacenamiento y proyectos personalizados para interiores.</p></a>
     </div>
   </div>
 </section>
@@ -2349,6 +2398,37 @@
 
 </section>
 
+
+
+
+
+<!-- =====================================
+     ANTES Y DESPUÉS
+====================================== -->
+<section class="section hidden-section" id="antes-despues">
+  <div class="container">
+    <div class="heading">
+      <span class="tag">TRANSFORMACIONES</span>
+      <h2 class="display">Antes y después</h2>
+      <p>Conoce cómo transformamos espacios mediante diseño, fabricación e instalación a medida.</p>
+    </div>
+    <div class="compare-grid" id="beforeAfterGrid"></div>
+  </div>
+</section>
+
+<!-- =====================================
+     TESTIMONIOS
+====================================== -->
+<section class="section hidden-section" id="testimonios">
+  <div class="container">
+    <div class="heading">
+      <span class="tag">EXPERIENCIAS</span>
+      <h2 class="display">Lo que dicen nuestros clientes</h2>
+      <p>Opiniones reales de personas que confiaron en ColoryMarmol para transformar sus espacios.</p>
+    </div>
+    <div class="testimonials-grid" id="testimonialsGrid"></div>
+  </div>
+</section>
 
 
 <!-- =====================================
@@ -2660,10 +2740,32 @@
             Proyecto completo
           </option>
 
+          <option>
+            Mobiliario a medida
+          </option>
+
         </select>
 
       </div>
 
+
+      <div class="row">
+
+        <input
+          name="Material de interés"
+          placeholder="Material de interés (opcional)"
+        >
+
+        <select name="Presupuesto aproximado">
+          <option value="">Presupuesto aproximado</option>
+          <option>Por definir</option>
+          <option>Hasta $30,000 MXN</option>
+          <option>$30,000 a $60,000 MXN</option>
+          <option>$60,000 a $100,000 MXN</option>
+          <option>Más de $100,000 MXN</option>
+        </select>
+
+      </div>
 
       <input
         name="Medidas"
@@ -2685,6 +2787,10 @@
         Solicitar cotización
       </button>
 
+      <p style="font-size:12px;color:#756f66;margin-top:14px">
+        Al enviar la solicitud, aceptas nuestro <a class="privacy-link" href="aviso-privacidad.html">Aviso de privacidad</a>.
+      </p>
+
     </form>
 
 
@@ -2692,6 +2798,30 @@
 
 </section>
 
+
+
+
+
+<!-- =====================================
+     PREGUNTAS FRECUENTES
+====================================== -->
+<section class="section" id="preguntas">
+  <div class="container">
+    <div class="heading">
+      <span class="tag">PREGUNTAS FRECUENTES</span>
+      <h2 class="display">Resolvemos tus dudas</h2>
+      <p>Información básica para ayudarte a planear tu proyecto antes de solicitar una cotización.</p>
+    </div>
+    <div class="faq-wrap">
+      <details><summary>¿Trabajan proyectos completamente a medida?</summary><p>Sí. El diseño se adapta a las dimensiones, distribución, necesidades y estilo de cada espacio.</p></details>
+      <details><summary>¿Qué tipo de proyectos realizan?</summary><p>Trabajamos cocinas, closets, vestidores, muebles de baño, cubiertas y mobiliario personalizado para interiores.</p></details>
+      <details><summary>¿Puedo elegir materiales y acabados?</summary><p>Sí. La selección se define según el proyecto y puede incluir piedra sinterizada, mármol, cuarzo, granito, maderas y otros acabados disponibles.</p></details>
+      <details><summary>¿Incluyen instalación?</summary><p>Los proyectos pueden contemplar fabricación e instalación profesional. Los alcances específicos se confirman durante la cotización.</p></details>
+      <details><summary>¿Cómo solicito una cotización?</summary><p>Completa el formulario de esta página. Al enviarlo se abrirá WhatsApp con los datos de tu proyecto para continuar la atención.</p></details>
+      <details><summary>¿Trabajan con arquitectos y constructoras?</summary><p>Sí. También atendemos proyectos para profesionales, desarrolladores y espacios comerciales.</p></details>
+    </div>
+  </div>
+</section>
 
 
 <!-- =====================================
@@ -2824,6 +2954,9 @@
 
   </div>
 
+  <div class="container" style="padding-top:18px;text-align:center">
+    <a class="privacy-link" href="aviso-privacidad.html">Aviso de privacidad</a>
+  </div>
 </footer>
 
 
@@ -3536,10 +3669,9 @@ function materialCard(material){
         </p>
 
         <a
-          href="#cotizar"
-          data-material="${name}"
+          href="material.html?slug=${encodeURIComponent(material.slug || material.id)}"
         >
-          Solicitar información →
+          Ver material →
         </a>
 
       </div>
@@ -3655,41 +3787,6 @@ async function loadMaterials(){
       </div>
     `;
 
-  container
-    .querySelectorAll(
-      "[data-material]"
-    )
-    .forEach(
-      link => {
-
-        link.addEventListener(
-          "click",
-          () => {
-
-            const select =
-              document.querySelector(
-                '#quoteForm select[name="Proyecto"]'
-              );
-
-            const details =
-              document.querySelector(
-                '#quoteForm textarea[name="Detalles"]'
-              );
-
-            if(select){
-              select.value = "Proyecto completo";
-            }
-
-            if(details){
-              details.value =
-                `Me interesa recibir información y cotización sobre el material: ${link.dataset.material}.`;
-            }
-
-          }
-        );
-
-      }
-    );
 
 }
 
@@ -3710,9 +3807,59 @@ async function loadMaterials(){
   if(text) text.textContent = location;
   if(hoursEl) hoursEl.textContent = hours;
   const query = encodeURIComponent(location);
-  if(button) button.href = `https://www.google.com/maps/search/?api=1&query=${query}`;
+  if(button) button.href = cfg.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${query}`;
   if(map) map.src = `https://www.google.com/maps?q=${query}&output=embed`;
 })();
+
+
+
+/* ==========================================
+   CONTENIDO CORPORATIVO OPCIONAL
+========================================== */
+(function renderCorporateContent(){
+  const beforeAfter = Array.isArray(cfg.beforeAfter) ? cfg.beforeAfter : [];
+  const testimonials = Array.isArray(cfg.testimonials) ? cfg.testimonials : [];
+
+  const beforeSection = document.getElementById("antes-despues");
+  const beforeGrid = document.getElementById("beforeAfterGrid");
+  if(beforeSection && beforeGrid && beforeAfter.length){
+    beforeSection.classList.remove("hidden-section");
+    beforeGrid.innerHTML = beforeAfter.map(item => `
+      <article class="compare-card">
+        <div class="compare-images">
+          <figure><img src="${escapeHTML(item.before || '')}" alt="Antes - ${escapeHTML(item.title || 'Proyecto')}" loading="lazy"><figcaption>ANTES</figcaption></figure>
+          <figure><img src="${escapeHTML(item.after || '')}" alt="Después - ${escapeHTML(item.title || 'Proyecto')}" loading="lazy"><figcaption>DESPUÉS</figcaption></figure>
+        </div>
+        <div class="compare-body"><h3>${escapeHTML(item.title || 'Transformación')}</h3><p>${escapeHTML(item.description || '')}</p></div>
+      </article>`).join("");
+  }
+
+  const testimonialSection = document.getElementById("testimonios");
+  const testimonialGrid = document.getElementById("testimonialsGrid");
+  if(testimonialSection && testimonialGrid && testimonials.length){
+    testimonialSection.classList.remove("hidden-section");
+    testimonialGrid.innerHTML = testimonials.map(item => `
+      <article class="testimonial-card">
+        <blockquote>“${escapeHTML(item.text || '')}”</blockquote>
+        <strong>${escapeHTML(item.name || 'Cliente')}</strong>
+        <span>${escapeHTML(item.project || '')}</span>
+      </article>`).join("");
+  }
+})();
+
+/* ==========================================
+   ACCESOS DE SOLUCIONES AL CATÁLOGO
+========================================== */
+document.querySelectorAll("[data-solution-filter]").forEach(link => {
+  link.addEventListener("click", () => {
+    const wanted = link.dataset.solutionFilter;
+    setTimeout(() => {
+      const button = document.querySelector(`.filter[data-filter="${wanted}"]`);
+      if(button) button.click();
+    }, 100);
+  });
+});
+
 
 loadProducts();
 loadMaterials();
