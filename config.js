@@ -15,6 +15,14 @@ window.COLORYMARMOL_CONFIG = {
 
   location: "CDMX y Estado de México",
   hours: "Lun–Sáb 9:00–18:00",
+  googleMapsUrl: "",
+
+  // Agrega únicamente testimonios reales. Si se deja vacío, la sección no se muestra.
+  testimonials: [],
+
+  // Agrega fotografías reales de antes/después. Si se deja vacío, la sección no se muestra.
+  // Ejemplo: { title: "Cocina integral", description: "Renovación completa", before: "ruta/antes.jpg", after: "ruta/despues.jpg" }
+  beforeAfter: [],
 
   social: {
     instagram: "#",
