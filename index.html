@@ -11,7 +11,7 @@
   >
 
   <title>
-    Cocinas ColoryMarmol | Cocinas Integrales, Closets, Baños y Cubiertas
+    Cocinas Color&Mármol | Cocinas Integrales, Closets, Baños y Cubiertas
   </title>
 
   <meta
@@ -32,13 +32,13 @@
   <!-- SEO / REDES SOCIALES -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
-  <meta property="og:site_name" content="Cocinas ColoryMarmol">
-  <meta property="og:title" content="Cocinas ColoryMarmol | Diseño, fabricación e instalación a medida">
+  <meta property="og:site_name" content="Cocinas Color&Mármol">
+  <meta property="og:title" content="Cocinas Color&Mármol | Diseño, fabricación e instalación a medida">
   <meta property="og:description" content="Cocinas, closets, vestidores, baños, cubiertas y mobiliario a medida con materiales premium.">
   <meta property="og:url" content="https://colorymarmol.com/">
   <meta property="og:image" content="https://colorymarmol.com/productos/images/hero-colorymarmol.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Cocinas ColoryMarmol">
+  <meta name="twitter:title" content="Cocinas Color&Mármol">
   <meta name="twitter:description" content="Diseño, fabricación e instalación de espacios a medida.">
   <meta name="twitter:image" content="https://colorymarmol.com/productos/images/hero-colorymarmol.png">
 
@@ -1946,7 +1946,7 @@
       class="logo"
     >
 
-      Cocinas ColoryMarmol
+      Cocinas Color&amp;Mármol
 
       <small>
         DISEÑO · FABRICACIÓN · INSTALACIÓN
@@ -2045,10 +2045,10 @@
 
     <h1>
 
-      Diseñamos y fabricamos
+      Diseñamos espacios que
 
       <em>
-        espacios que inspiran
+        embellecen tu hogar
       </em>
 
     </h1>
@@ -2149,7 +2149,7 @@
       </span>
 
       <h2 class="display">
-        ¿Por qué elegir ColoryMarmol?
+        ¿Por qué elegir Color&Mármol?
       </h2>
 
       <p>
@@ -2691,7 +2691,7 @@
     <div>
       <span class="tag">SOBRE COLORYMARMOL</span>
       <h2 class="display">Del concepto a un espacio hecho a tu medida</h2>
-      <p>En Cocinas ColoryMarmol desarrollamos soluciones de interiorismo y mobiliario personalizado, cuidando la selección de materiales, la fabricación y la instalación para lograr espacios funcionales, duraderos y con una identidad propia.</p>
+      <p>En Cocinas Color&amp;Mármol desarrollamos soluciones de interiorismo y mobiliario personalizado, cuidando la selección de materiales, la fabricación y la instalación para lograr espacios funcionales, duraderos y con una identidad propia.</p>
       <p>Trabajamos cada proyecto de forma personalizada para adaptarnos a las dimensiones, necesidades y estilo de cada cliente.</p>
       <a class="btn" href="#cotizar">Cuéntanos tu proyecto</a>
     </div>
@@ -3114,12 +3114,27 @@
 ========================================== */
 
 
-const cfg =
-  window.COLORYMARMOL_CONFIG;
+const cfg = window.COLORYMARMOL_CONFIG || {
+  phone: "56 1578 9990",
+  whatsapp: "525615789990",
+  email: "contacto@colorymarmol.com",
+  location: "CDMX y Estado de México",
+  hours: "Lun–Sáb 9:00–18:00"
+};
 
+// Cliente público de Supabase. Si config.js ya lo creó, se reutiliza.
+// Si no existe, se crea aquí para que el catálogo no dependa de otra versión de config.js.
+const SUPABASE_URL = "https://ljpdnsjppehslfimefam.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_mdZUy9cgUegxZY0Zz2B_mQ_dYDQC5IH";
 
-const sb =
-  window.supabaseClient;
+const sb = window.supabaseClient ||
+  (window.supabase && window.supabase.createClient
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
+    : null);
+
+if (sb && !window.supabaseClient) {
+  window.supabaseClient = sb;
+}
 
 
 const TABLE =
