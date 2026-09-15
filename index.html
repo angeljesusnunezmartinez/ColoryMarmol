@@ -11,7 +11,7 @@
   >
 
   <title>
-    Cocinas Color&Mármol | Cocinas Integrales, Closets, Baños y Cubiertas
+    Cocinas ColoryMarmol | Cocinas Integrales, Closets, Baños y Cubiertas
   </title>
 
   <meta
@@ -32,14 +32,14 @@
   <!-- SEO / REDES SOCIALES -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
-  <meta property="og:site_name" content="Cocinas Color&Mármol">
-  <meta property="og:title" content="Cocinas Color&Mármol | Diseñamos espacios que embellecen tu hogar">
+  <meta property="og:site_name" content="Cocinas ColoryMarmol">
+  <meta property="og:title" content="Cocinas ColoryMarmol | Diseño, fabricación e instalación a medida">
   <meta property="og:description" content="Cocinas, closets, vestidores, baños, cubiertas y mobiliario a medida con materiales premium.">
   <meta property="og:url" content="https://colorymarmol.com/">
   <meta property="og:image" content="https://colorymarmol.com/productos/images/hero-colorymarmol.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Cocinas Color&Mármol">
-  <meta name="twitter:description" content="Diseñamos espacios que embellecen tu hogar.">
+  <meta name="twitter:title" content="Cocinas ColoryMarmol">
+  <meta name="twitter:description" content="Diseño, fabricación e instalación de espacios a medida.">
   <meta name="twitter:image" content="https://colorymarmol.com/productos/images/hero-colorymarmol.png">
 
 
@@ -1806,7 +1806,104 @@
     @media(max-width:850px){.compare-grid,.testimonials-grid{grid-template-columns:1fr}}
     @media(max-width:600px){.compare-images{grid-template-columns:1fr}.compare-images figure,.compare-images img{min-height:220px}}
 
+
+    /* =====================================
+       MEJORA COMERCIAL - SOLUCIONES VISUALES
+    ====================================== */
+    .solution-card{
+      min-height:310px;
+      color:#fff;
+      border:0;
+      border-radius:14px;
+      background:#191917;
+      isolation:isolate;
+    }
+    .solution-card::before{
+      z-index:-2;
+      background:
+        linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.84)),
+        var(--solution-image, linear-gradient(135deg,#34312d,#171715));
+      background-size:cover;
+      background-position:center;
+      transform:scale(1);
+      transition:transform .45s ease;
+    }
+    .solution-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:linear-gradient(135deg,rgba(183,127,43,.18),transparent 45%);
+      pointer-events:none;
+    }
+    .solution-card:hover::before{transform:scale(1.04)}
+    .solution-card h3{font-size:24px;color:#fff}
+    .solution-card p{color:#e8e2d9}
+    .solution-card .solution-link{
+      margin-top:14px;
+      color:#d9a24f;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .solution-card[data-solution-filter="cocinas"]{--solution-image:url("productos/images/cocina-moderna-negra-madera.jpg")}
+    .solution-card[data-solution-filter="closets"]{--solution-image:url("productos/images/closet-moderno.jpg")}
+    .solution-card[data-solution-filter="banos"]{--solution-image:url("productos/images/bano-mueble-suspendido.jpg")}
+    .solution-card.solution-cubiertas{--solution-image:url("productos/images/marmol-carrara.jpg")}
+    .solution-card.solution-mobiliario{--solution-image:url("hero-colorymarmol.png")}
+
+    /* PROYECTOS: lectura más clara como portafolio */
+    #proyectos .card-body::before{
+      content:"PROYECTO REALIZADO";
+      display:block;
+      margin-bottom:7px;
+      color:var(--gold);
+      font-size:9px;
+      font-weight:800;
+      letter-spacing:.14em;
+    }
+
+    /* HERO refinado */
+    .hero-content .brand-kicker{
+      display:block;
+      margin-bottom:7px;
+      font-family:Georgia,serif;
+      font-size:15px;
+      letter-spacing:.16em;
+      color:#fff;
+      text-transform:uppercase;
+    }
+    .hero .outline:hover{background:#fff;color:#171715}
+
+    /* Aparición suave */
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .65s ease,transform .65s ease;
+    }
+    .reveal.visible{opacity:1;transform:none}
+
+    @media (prefers-reduced-motion: reduce){
+      .reveal{opacity:1;transform:none;transition:none}
+      .solution-card::before{transition:none}
+    }
+
 </style>
+
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"HomeAndConstructionBusiness",
+    "name":"Cocinas Color&Mármol",
+    "url":"https://colorymarmol.com/",
+    "description":"Diseño, fabricación e instalación de cocinas, closets, baños, cubiertas y mobiliario a medida.",
+    "telephone":"+52 56 1578 9990",
+    "email":"contacto@colorymarmol.com",
+    "areaServed":["CDMX","Estado de México"]
+  }
+  </script>
 
 </head>
 
@@ -1849,7 +1946,7 @@
       class="logo"
     >
 
-      Cocinas Color&Mármol
+      Cocinas ColoryMarmol
 
       <small>
         DISEÑO · FABRICACIÓN · INSTALACIÓN
@@ -1934,23 +2031,24 @@
 
   <img
     src="hero-colorymarmol.png"
-    alt="Cocinas Color&Mármol — Diseñamos espacios que embellecen tu hogar"
+    alt="Cocina integral premium"
   >
 
 
   <div class="container hero-content">
 
+    <span class="brand-kicker">Cocinas Color&amp;Mármol</span>
     <span class="tag">
-      FABRICANTES DIRECTOS
+      DISEÑO A MEDIDA · FABRICACIÓN · INSTALACIÓN
     </span>
 
 
     <h1>
 
-      Diseñamos espacios que
+      Diseñamos y fabricamos
 
       <em>
-        embellecen tu hogar
+        espacios que inspiran
       </em>
 
     </h1>
@@ -1958,9 +2056,12 @@
 
     <p>
 
-      Cocinas, closets, vestidores, baños, encimeras
-      y mobiliario creados a medida para transformar
-      cada espacio con diseño, funcionalidad y personalidad.
+      Cocinas integrales,
+      closets,
+      vestidores,
+      muebles para baño
+      y cubiertas completamente
+      a medida.
 
     </p>
 
@@ -1977,9 +2078,9 @@
 
       <a
         class="btn outline"
-        href="#productos"
+        href="#proyectos"
       >
-        Ver catálogo
+        Ver proyectos
       </a>
 
     </div>
@@ -2048,7 +2149,7 @@
       </span>
 
       <h2 class="display">
-        ¿Por qué elegir Color&Mármol?
+        ¿Por qué elegir ColoryMarmol?
       </h2>
 
       <p>
@@ -2157,11 +2258,11 @@
     </div>
 
     <div class="solutions-grid">
-      <a class="solution-card" href="#productos" data-solution-filter="cocinas"><span class="solution-number">01</span><h3>Cocinas</h3><p>Diseños integrales a medida con distribución, almacenamiento y acabados pensados para cada espacio.</p></a>
-      <a class="solution-card" href="#productos" data-solution-filter="closets"><span class="solution-number">02</span><h3>Closets y vestidores</h3><p>Organización personalizada, interiores funcionales y soluciones de piso a techo.</p></a>
-      <a class="solution-card" href="#productos" data-solution-filter="banos"><span class="solution-number">03</span><h3>Baños</h3><p>Muebles, cubiertas y soluciones que combinan resistencia, funcionalidad y diseño.</p></a>
-      <a class="solution-card" href="#materiales"><span class="solution-number">04</span><h3>Cubiertas</h3><p>Piedra sinterizada, mármol, cuarzo, granito y superficies para cocinas, barras y baños.</p></a>
-      <a class="solution-card" href="#cotizar"><span class="solution-number">05</span><h3>Mobiliario a medida</h3><p>Muebles especiales para TV, almacenamiento y proyectos personalizados para interiores.</p></a>
+      <a class="solution-card" href="#productos" data-solution-filter="cocinas"><span class="solution-number">01</span><h3>Cocinas</h3><p>Diseños integrales a medida con distribución, almacenamiento y acabados pensados para cada espacio.</p><span class="solution-link">Ver diseños →</span></a>
+      <a class="solution-card" href="#productos" data-solution-filter="closets"><span class="solution-number">02</span><h3>Closets y vestidores</h3><p>Organización personalizada, interiores funcionales y soluciones de piso a techo.</p><span class="solution-link">Ver diseños →</span></a>
+      <a class="solution-card" href="#productos" data-solution-filter="banos"><span class="solution-number">03</span><h3>Baños</h3><p>Muebles, cubiertas y soluciones que combinan resistencia, funcionalidad y diseño.</p><span class="solution-link">Ver diseños →</span></a>
+      <a class="solution-card solution-cubiertas" href="#materiales"><span class="solution-number">04</span><h3>Cubiertas</h3><p>Piedra sinterizada, mármol, cuarzo, granito y superficies para cocinas, barras y baños.</p><span class="solution-link">Explorar materiales →</span></a>
+      <a class="solution-card solution-mobiliario" href="#cotizar"><span class="solution-number">05</span><h3>Mobiliario a medida</h3><p>Muebles especiales para TV, almacenamiento y proyectos personalizados para interiores.</p><span class="solution-link">Cotizar proyecto →</span></a>
     </div>
   </div>
 </section>
@@ -2347,12 +2448,11 @@
       </span>
 
       <h2 class="display">
-        Diseños que inspiran
+        Proyectos realizados
       </h2>
 
       <p>
-        Una selección de nuestros
-        proyectos destacados.
+        Conoce una selección de trabajos y soluciones desarrolladas a medida.
       </p>
 
     </div>
@@ -2421,7 +2521,7 @@
     <div class="heading">
       <span class="tag">EXPERIENCIAS</span>
       <h2 class="display">Lo que dicen nuestros clientes</h2>
-      <p>Opiniones reales de personas que confiaron en Color&Mármol para transformar sus espacios.</p>
+      <p>Opiniones reales de personas que confiaron en ColoryMarmol para transformar sus espacios.</p>
     </div>
     <div class="testimonials-grid" id="testimonialsGrid"></div>
   </div>
@@ -2583,15 +2683,15 @@
 
 
 <!-- =====================================
-     SOBRE COLOR&MÁRMOL
+     SOBRE COLORYMARMOL
 ====================================== -->
 
 <section class="section about-section" id="nosotros">
   <div class="container about-grid">
     <div>
-      <span class="tag">SOBRE COLOR&MÁRMOL</span>
+      <span class="tag">SOBRE COLORYMARMOL</span>
       <h2 class="display">Del concepto a un espacio hecho a tu medida</h2>
-      <p>En Cocinas Color&Mármol desarrollamos soluciones de interiorismo y mobiliario personalizado, cuidando la selección de materiales, la fabricación y la instalación para lograr espacios funcionales, duraderos y con una identidad propia.</p>
+      <p>En Cocinas ColoryMarmol desarrollamos soluciones de interiorismo y mobiliario personalizado, cuidando la selección de materiales, la fabricación y la instalación para lograr espacios funcionales, duraderos y con una identidad propia.</p>
       <p>Trabajamos cada proyecto de forma personalizada para adaptarnos a las dimensiones, necesidades y estilo de cada cliente.</p>
       <a class="btn" href="#cotizar">Cuéntanos tu proyecto</a>
     </div>
@@ -2670,14 +2770,11 @@
       </span>
 
       <h2 class="display">
-        Cotiza directamente
-        con el fabricante
+        Cuéntanos qué espacio quieres transformar
       </h2>
 
       <p>
-        Completa los datos y
-        abriremos WhatsApp con
-        la información de tu proyecto.
+        Selecciona el tipo de proyecto, material y presupuesto aproximado. Al finalizar, continuaremos la atención por WhatsApp.
       </p>
 
     </div>
@@ -2764,6 +2861,25 @@
 
       </div>
 
+      <div class="row">
+        <select name="Estilo">
+          <option value="">Estilo de interés</option>
+          <option>Moderno</option>
+          <option>Minimalista</option>
+          <option>Contemporáneo</option>
+          <option>Clásico</option>
+          <option>No estoy seguro</option>
+        </select>
+        <select name="Etapa del proyecto">
+          <option value="">Etapa del proyecto</option>
+          <option>Solo estoy explorando opciones</option>
+          <option>Quiero cotizar</option>
+          <option>Ya tengo medidas</option>
+          <option>Ya tengo diseño o referencia</option>
+          <option>Quiero iniciar pronto</option>
+        </select>
+      </div>
+
       <input
         name="Medidas"
         placeholder="Medidas aproximadas"
@@ -2783,6 +2899,9 @@
       >
         Solicitar cotización
       </button>
+      <p style="font-size:12px;color:#756f66;margin:12px 0 0">
+        Después de abrir WhatsApp podrás enviarnos fotografías, medidas o referencias de tu espacio para complementar la cotización.
+      </p>
 
       <p style="font-size:12px;color:#756f66;margin-top:14px">
         Al enviar la solicitud, aceptas nuestro <a class="privacy-link" href="aviso-privacidad.html">Aviso de privacidad</a>.
@@ -2829,11 +2948,11 @@
     <div class="heading">
       <span class="tag">VISÍTANOS</span>
       <h2 class="display">Conoce nuestra ubicación</h2>
-      <p>Acércate a Color&Mármol para conocer materiales, acabados y conversar sobre tu proyecto.</p>
+      <p>Acércate a ColoryMarmol para conocer materiales, acabados y conversar sobre tu proyecto.</p>
     </div>
     <div class="location-grid">
       <div class="location-card">
-        <span class="tag">COLOR&MÁRMOL</span>
+        <span class="tag">COLORYMARMOL</span>
         <h3>Diseño y fabricación a medida</h3>
         <p id="locationText">CDMX y Estado de México</p>
         <div class="location-data">
@@ -2843,7 +2962,7 @@
         <a class="btn" id="mapsButton" href="#" target="_blank" rel="noopener noreferrer">Cómo llegar</a>
       </div>
       <div class="map-wrap" id="mapWrap">
-        <iframe id="locationMap" title="Ubicación de Cocinas Color&Mármol" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe id="locationMap" title="Ubicación de Cocinas ColoryMarmol" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
   </div>
@@ -2869,7 +2988,7 @@
 
       <div class="logo">
 
-        Cocinas Color&Mármol
+        Cocinas ColoryMarmol
 
         <small>
           FABRICANTES DIRECTOS
@@ -4072,7 +4191,7 @@ document
 
     const lines = [
 
-      "Hola, me gustaría solicitar una cotización con Cocinas Color&Mármol."
+      "Hola, me gustaría solicitar una cotización con Cocinas ColoryMarmol."
 
     ];
 
@@ -4124,6 +4243,32 @@ document
 
 </script>
 
+
+
+<script>
+(function setupRevealAnimations(){
+  const targets = document.querySelectorAll(
+    ".trust-card,.solution-card,.product-card,.card,.step,.about-point,.location-card,.quote form"
+  );
+  targets.forEach(el => el.classList.add("reveal"));
+
+  if(!("IntersectionObserver" in window)){
+    targets.forEach(el => el.classList.add("visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:.12});
+
+  targets.forEach(el => observer.observe(el));
+})();
+</script>
 
 </body>
 
