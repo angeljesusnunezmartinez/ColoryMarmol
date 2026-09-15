@@ -3132,6 +3132,24 @@ const sb = window.supabaseClient ||
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
     : null);
 
+// Respaldo directo a la API REST de Supabase. Esto permite cargar el catálogo
+// incluso si el cliente de supabase-js no se inicializa correctamente en GitHub Pages.
+async function supabaseRest(table, order = "created_at.desc") {
+  const url = `${SUPABASE_URL}/rest/v1/${encodeURIComponent(table)}?select=*&estado=eq.publicado&order=${encodeURIComponent(order)}`;
+  const response = await fetch(url, {
+    headers: {
+      apikey: SUPABASE_PUBLISHABLE_KEY,
+      Accept: "application/json"
+    },
+    cache: "no-store"
+  });
+  if (!response.ok) {
+    const detail = await response.text();
+    throw new Error(`Supabase REST ${response.status}: ${detail}`);
+  }
+  return response.json();
+}
+
 if (sb && !window.supabaseClient) {
   window.supabaseClient = sb;
 }
@@ -3549,195 +3567,50 @@ function carouselCard(product){
 
 
 async function loadProducts(){
+  console.log("Cargando productos publicados...");
 
-  console.log(
-    "Cargando productos publicados..."
-  );
+  const grid = document.getElementById("productGrid");
+  const featuredGrid = document.getElementById("featuredCarousel");
 
+  try {
+    let data = null;
+    let clientError = null;
 
-  if(!sb){
+    if (sb) {
+      const result = await sb
+        .from(TABLE)
+        .select("*")
+        .eq("estado", "publicado")
+        .order("created_at", { ascending:false });
+      data = result.data;
+      clientError = result.error;
+    }
 
-    document
-      .getElementById(
-        "productGrid"
-      )
-      .innerHTML =
+    // Si supabase-js falla o no existe, intenta directamente por REST.
+    if (!sb || clientError) {
+      if (clientError) console.warn("Supabase JS falló; usando REST:", clientError);
+      data = await supabaseRest(TABLE, "created_at.desc");
+    }
 
-      `
-        <div class="empty">
-          Error de configuración con Supabase.
-        </div>
-      `;
+    products = Array.isArray(data) ? data : [];
+    console.log("Productos publicados encontrados:", products);
 
-    return;
+    grid.innerHTML = products.length
+      ? products.map(card).join("")
+      : `<div class="empty">Próximamente publicaremos nuevos diseños.</div>`;
 
+    const featured = products.filter(product => product.destacado === true);
+    const featuredToShow = featured.length ? featured : products.slice(0, 6);
+
+    featuredGrid.innerHTML = featuredToShow.length
+      ? featuredToShow.map(carouselCard).join("")
+      : `<div class="empty">Próximamente mostraremos nuevos proyectos.</div>`;
+
+  } catch (error) {
+    console.error("Error definitivo cargando productos:", error);
+    grid.innerHTML = `<div class="empty">No fue posible cargar el catálogo en este momento.</div>`;
+    featuredGrid.innerHTML = `<div class="empty">No fue posible cargar los proyectos.</div>`;
   }
-
-
-  const {
-    data,
-    error
-  } =
-
-  await sb
-
-    .from(
-      TABLE
-    )
-
-    .select(
-      "*"
-    )
-
-    .eq(
-      "estado",
-      "publicado"
-    )
-
-    .order(
-      "created_at",
-      {
-        ascending:false
-      }
-    );
-
-
-
-  if(error){
-
-    console.error(
-      "Error cargando productos:",
-      error
-    );
-
-
-    document
-      .getElementById(
-        "productGrid"
-      )
-      .innerHTML =
-
-      `
-        <div class="empty">
-          No fue posible cargar el catálogo.
-        </div>
-      `;
-
-
-    document
-      .getElementById(
-        "featuredCarousel"
-      )
-      .innerHTML =
-
-      `
-        <div class="empty">
-          No fue posible cargar los proyectos.
-        </div>
-      `;
-
-
-    return;
-
-  }
-
-
-
-  products =
-    data || [];
-
-
-  console.log(
-    "Productos publicados encontrados:",
-    products
-  );
-
-
-
-  /* ========================================
-     CATÁLOGO GENERAL
-  ======================================== */
-
-
-  document
-    .getElementById(
-      "productGrid"
-    )
-    .innerHTML =
-
-    products.length
-    ?
-
-    products
-      .map(
-        card
-      )
-      .join("")
-
-    :
-
-    `
-      <div class="empty">
-        Próximamente publicaremos nuevos diseños.
-      </div>
-    `;
-
-
-
-  /* ========================================
-     DESTACADOS
-  ======================================== */
-
-
-  const featured =
-
-    products.filter(
-      product =>
-        product.destacado
-        ===
-        true
-    );
-
-
-  const featuredToShow =
-
-    featured.length
-    ?
-    featured
-    :
-    products.slice(
-      0,
-      6
-    );
-
-
-
-  document
-    .getElementById(
-      "featuredCarousel"
-    )
-    .innerHTML =
-
-    featuredToShow.length
-
-    ?
-
-    featuredToShow
-      .map(
-        carouselCard
-      )
-      .join("")
-
-    :
-
-    `
-      <div class="empty">
-        Próximamente mostraremos nuevos proyectos.
-      </div>
-    `;
-
-
-
 }
 
 
@@ -3819,107 +3692,40 @@ function materialCard(material){
 ========================================== */
 
 async function loadMaterials(){
+  console.log("Cargando materiales publicados...");
+  const container = document.getElementById("materialCarousel");
 
-  console.log(
-    "Cargando materiales publicados..."
-  );
+  try {
+    let data = null;
+    let clientError = null;
 
-  const container =
-    document.getElementById(
-      "materialCarousel"
-    );
+    if (sb) {
+      const result = await sb
+        .from(MATERIALS_TABLE)
+        .select("*")
+        .eq("estado", "publicado")
+        .order("destacado", { ascending:false })
+        .order("created_at", { ascending:false });
+      data = result.data;
+      clientError = result.error;
+    }
 
-  if(!sb){
+    if (!sb || clientError) {
+      if (clientError) console.warn("Supabase JS materiales falló; usando REST:", clientError);
+      data = await supabaseRest(MATERIALS_TABLE, "destacado.desc,created_at.desc");
+    }
 
-    container.innerHTML = `
-      <div class="empty">
-        Error de configuración con Supabase.
-      </div>
-    `;
+    const materials = Array.isArray(data) ? data : [];
+    container.innerHTML = materials.length
+      ? materials.map(materialCard).join("")
+      : `<div class="empty">Próximamente mostraremos nuestros materiales.</div>`;
 
-    return;
-
+  } catch (error) {
+    console.error("Error definitivo cargando materiales:", error);
+    container.innerHTML = `<div class="empty">No fue posible cargar los materiales en este momento.</div>`;
   }
-
-  const {
-    data,
-    error
-  } = await sb
-
-    .from(
-      MATERIALS_TABLE
-    )
-
-    .select(
-      "*"
-    )
-
-    .eq(
-      "estado",
-      "publicado"
-    )
-
-    .order(
-      "destacado",
-      {
-        ascending:false
-      }
-    )
-
-    .order(
-      "created_at",
-      {
-        ascending:false
-      }
-    );
-
-  if(error){
-
-    console.error(
-      "Error cargando materiales:",
-      error
-    );
-
-    container.innerHTML = `
-      <div class="empty">
-        No fue posible cargar los materiales.
-      </div>
-    `;
-
-    return;
-
-  }
-
-  const materials =
-    data || [];
-
-  console.log(
-    "Materiales publicados encontrados:",
-    materials
-  );
-
-  container.innerHTML =
-
-    materials.length
-
-    ?
-
-    materials
-      .map(
-        materialCard
-      )
-      .join("")
-
-    :
-
-    `
-      <div class="empty">
-        Próximamente mostraremos nuestros materiales.
-      </div>
-    `;
-
-
 }
+
 
 /* ==========================================
    INICIAR CATÁLOGO
