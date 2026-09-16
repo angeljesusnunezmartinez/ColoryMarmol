@@ -29,6 +29,9 @@
     content="#151513"
   >
 
+  <link rel="icon" type="image/png" href="favicon-colorymarmol.png">
+  <link rel="apple-touch-icon" href="favicon-colorymarmol.png">
+
   <!-- SEO / REDES SOCIALES -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
@@ -284,6 +287,21 @@
 
     }
 
+
+    .header-logo-img{
+      width:230px;
+      max-height:58px;
+      object-fit:contain;
+      object-position:left center;
+    }
+
+    .logo:has(.header-logo-img){
+      padding-left:0;
+    }
+
+    .logo:has(.header-logo-img)::before{
+      display:none;
+    }
 
     .nav nav{
 
@@ -1762,6 +1780,10 @@
     .about-point strong{display:block;color:#d09a49;font-family:Georgia,serif;font-size:20px;margin-bottom:7px}
     .about-point span{font-size:12px;color:#bbb7b0;line-height:1.5}
 
+    .about-visual{position:relative;overflow:hidden;border-radius:14px;min-height:460px;background:#242421}
+    .about-visual img{width:100%;height:100%;min-height:460px;object-fit:cover}
+    .about-content .about-points{margin-top:28px}
+
     .location-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:stretch}
     .location-card{background:#f4f0e8;padding:34px;border:1px solid #e1d8ca}
     .location-card h3{font-family:Georgia,serif;font-size:28px;margin:8px 0 16px}
@@ -1946,11 +1968,7 @@
       class="logo"
     >
 
-      Cocinas Color&amp;Mármol
-
-      <small>
-        DISEÑO · FABRICACIÓN · INSTALACIÓN
-      </small>
+      <img src="logo-colorymarmol-horizontal.png" alt="Cocinas Color&amp;Mármol" class="header-logo-img">
 
     </a>
 
@@ -2688,18 +2706,22 @@
 
 <section class="section about-section" id="nosotros">
   <div class="container about-grid">
-    <div>
-      <span class="tag">SOBRE COLORYMARMOL</span>
-      <h2 class="display">Del concepto a un espacio hecho a tu medida</h2>
-      <p>En Cocinas Color&amp;Mármol desarrollamos soluciones de interiorismo y mobiliario personalizado, cuidando la selección de materiales, la fabricación y la instalación para lograr espacios funcionales, duraderos y con una identidad propia.</p>
-      <p>Trabajamos cada proyecto de forma personalizada para adaptarnos a las dimensiones, necesidades y estilo de cada cliente.</p>
+    <div class="about-content">
+      <span class="tag">SOBRE COLOR&amp;MÁRMOL</span>
+      <h2 class="display">Diseñamos espacios que se sienten tuyos</h2>
+      <p>En Cocinas Color&amp;Mármol diseñamos y fabricamos espacios a medida que combinan funcionalidad, estética y materiales de alta calidad.</p>
+      <p>Cada proyecto nace de las necesidades, el estilo y el espacio de nuestros clientes. Cuidamos cada detalle, desde la selección de materiales y el diseño hasta la fabricación e instalación, buscando crear ambientes duraderos, funcionales y con identidad propia.</p>
+      <div class="about-points">
+        <div class="about-point"><strong>Diseño a medida</strong><span>Soluciones adaptadas a las dimensiones, necesidades y estilo de cada espacio.</span></div>
+        <div class="about-point"><strong>Materiales de calidad</strong><span>Selección de superficies, maderas, herrajes y acabados para cada proyecto.</span></div>
+        <div class="about-point"><strong>Fabricación propia</strong><span>Control del proyecto desde la planeación y producción hasta los detalles finales.</span></div>
+        <div class="about-point"><strong>Instalación profesional</strong><span>Montaje y ajustes para entregar un proyecto integral y bien terminado.</span></div>
+      </div>
+      <p style="margin-top:24px;font-family:Georgia,serif;font-size:20px;color:#d09a49">“Transformamos ideas en espacios que embellecen tu hogar.”</p>
       <a class="btn" href="#cotizar">Cuéntanos tu proyecto</a>
     </div>
-    <div class="about-points">
-      <div class="about-point"><strong>A medida</strong><span>Diseños adaptados a las dimensiones reales de tu espacio.</span></div>
-      <div class="about-point"><strong>Materiales</strong><span>Selección de superficies, maderas, herrajes y acabados.</span></div>
-      <div class="about-point"><strong>Fabricación</strong><span>Control del proyecto desde la planeación hasta la producción.</span></div>
-      <div class="about-point"><strong>Instalación</strong><span>Montaje y ajustes para entregar un proyecto integral.</span></div>
+    <div class="about-visual">
+      <img src="images/sobre-nosotros-colorymarmol.png" alt="Interior diseñado por Cocinas Color&amp;Mármol" loading="lazy">
     </div>
   </div>
 </section>
