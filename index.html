@@ -3124,21 +3124,22 @@ const cfg = window.COLORYMARMOL_CONFIG || {
 
 // Cliente público de Supabase. Si config.js ya lo creó, se reutiliza.
 // Si no existe, se crea aquí para que el catálogo no dependa de otra versión de config.js.
-const SUPABASE_URL = "https://ljpdnsjppehslfimefam.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_mdZUy9cgUegxZY0Zz2B_mQ_dYDQC5IH";
+const INDEX_SUPABASE_URL = "https://ljpdnsjppehslfimefam.supabase.co";
+const INDEX_SUPABASE_PUBLISHABLE_KEY = "sb_publishable_mdZUy9cgUegxZY0Zz2B_mQ_dYDQC5IH";
 
 const sb = window.supabaseClient ||
   (window.supabase && window.supabase.createClient
-    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
+    ? window.supabase.createClient(INDEX_SUPABASE_URL, INDEX_SUPABASE_PUBLISHABLE_KEY)
     : null);
 
 // Respaldo directo a la API REST de Supabase. Esto permite cargar el catálogo
 // incluso si el cliente de supabase-js no se inicializa correctamente en GitHub Pages.
 async function supabaseRest(table, order = "created_at.desc") {
-  const url = `${SUPABASE_URL}/rest/v1/${encodeURIComponent(table)}?select=*&estado=eq.publicado&order=${encodeURIComponent(order)}`;
+  const url = `${INDEX_SUPABASE_URL}/rest/v1/${encodeURIComponent(table)}?select=*&estado=eq.publicado&order=${encodeURIComponent(order)}`;
   const response = await fetch(url, {
     headers: {
-      apikey: SUPABASE_PUBLISHABLE_KEY,
+      apikey: INDEX_SUPABASE_PUBLISHABLE_KEY,
+      Authorization: `Bearer ${INDEX_SUPABASE_PUBLISHABLE_KEY}`,
       Accept: "application/json"
     },
     cache: "no-store"
