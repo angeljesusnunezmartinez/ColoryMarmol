@@ -3183,57 +3183,38 @@ if(!sb){
 
 
 /* ==========================================
+   INICIO SEGURO DEL CATÁLOGO
+========================================== */
+
+// Las funciones están declaradas más abajo y son elevadas por JavaScript.
+// Se inicia la carga antes de cualquier código visual secundario para evitar
+// que un elemento opcional de la página bloquee Productos o Materiales.
+loadProducts();
+loadMaterials();
+
+function byId(id){ return document.getElementById(id); }
+
+/* ==========================================
    DATOS DE CONTACTO
 ========================================== */
 
+const topPhoneEl = byId("topPhone");
+if(topPhoneEl) topPhoneEl.textContent = "WhatsApp: " + (cfg.phone || "");
 
-document
-  .getElementById(
-    "topPhone"
-  )
-  .textContent =
-  "WhatsApp: " +
-  cfg.phone;
+const footPhoneEl = byId("footPhone");
+if(footPhoneEl) footPhoneEl.textContent = cfg.phone || "";
 
+const footEmailEl = byId("footEmail");
+if(footEmailEl) footEmailEl.textContent = cfg.email || "";
 
-document
-  .getElementById(
-    "footPhone"
-  )
-  .textContent =
-  cfg.phone;
+const footLocationEl = byId("footLocation");
+if(footLocationEl) footLocationEl.textContent = cfg.location || "";
 
-
-document
-  .getElementById(
-    "footEmail"
-  )
-  .textContent =
-  cfg.email;
-
-
-document
-  .getElementById(
-    "footLocation"
-  )
-  .textContent =
-  cfg.location;
-
-
-
-document
-  .getElementById(
-    "waFloat"
-  )
-  .href =
-
-  "https://wa.me/" +
-  cfg.whatsapp +
-  "?text=" +
-  encodeURIComponent(
-    "Hola, vi su página y me gustaría solicitar información sobre un proyecto a medida."
-  );
-
+const waFloatEl = byId("waFloat");
+if(waFloatEl){
+  waFloatEl.href = "https://wa.me/" + (cfg.whatsapp || "525615789990") +
+    "?text=" + encodeURIComponent("Hola, vi su página y me gustaría solicitar información sobre un proyecto a medida.");
+}
 
 
 /* ==========================================
@@ -3241,23 +3222,11 @@ document
 ========================================== */
 
 
-document
-  .getElementById(
-    "menuBtn"
-  )
-  .onclick =
-  () => {
-
-    document
-      .getElementById(
-        "nav"
-      )
-      .classList
-      .toggle(
-        "open"
-      );
-
-  };
+const menuBtnEl = byId("menuBtn");
+const navEl = byId("nav");
+if(menuBtnEl && navEl){
+  menuBtnEl.onclick = () => navEl.classList.toggle("open");
+}
 
 
 document
@@ -3797,11 +3766,6 @@ document.querySelectorAll("[data-solution-filter]").forEach(link => {
     }, 100);
   });
 });
-
-
-loadProducts();
-loadMaterials();
-
 
 
 /* ==========================================
